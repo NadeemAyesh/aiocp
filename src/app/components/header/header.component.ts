@@ -1,5 +1,6 @@
-import { Component, HostListener, Output, EventEmitter, signal, computed, OnInit } from '@angular/core';
+import { Component, HostListener, Output, EventEmitter, signal, computed, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-header',
@@ -59,9 +60,9 @@ import { CommonModule } from '@angular/common';
       </div>
     </div>
 
-    <!-- Main Navigation Header (Clean, Light Glass with Navy Brand & Shadow - Fixed on Scroll) -->
+    <!-- Main Navigation Header (Clean Glass with Navy Brand & Shadow - Fixed on Scroll, Dark Mode Enabled) -->
     <header 
-      class="w-full transition-all duration-300 bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-sm"
+      class="w-full transition-all duration-300 bg-white/95 dark:bg-[#07172b]/95 backdrop-blur-md border-b border-slate-200/90 dark:border-white/10 shadow-sm"
       [class.navbar-fixed]="isScrolled()"
       [class.relative]="!isScrolled()"
       [class.z-40]="!isScrolled()"
@@ -71,7 +72,7 @@ import { CommonModule } from '@angular/common';
           
           <!-- Logo & Brand Name -->
           <a href="#" class="flex items-center gap-3.5 group focus:outline-none">
-            <div class="relative bg-white p-1 rounded-xl shadow-sm border border-slate-200 group-hover:scale-105 transition-transform duration-200">
+            <div class="relative bg-white dark:bg-[#0b1f36] p-1 rounded-xl shadow-sm border border-slate-200 dark:border-white/15 group-hover:scale-105 transition-transform duration-200">
               <img 
                 src="images/logo-palimar.png" 
                 alt="شعار الهيئة العربية الدولية للإعمار في فلسطين" 
@@ -83,13 +84,13 @@ import { CommonModule } from '@angular/common';
               />
             </div>
             <div class="flex flex-col text-right">
-              <span class="text-[#00284d] font-black text-sm sm:text-base leading-tight tracking-tight">
+              <span class="text-[#00284d] dark:text-white font-black text-sm sm:text-base leading-tight tracking-tight">
                 الهيئة العربية الدولية
               </span>
               <span class="text-[#f4921e] font-extrabold text-xs sm:text-sm leading-tight">
                 للإعمار في فلسطين
               </span>
-              <span class="text-slate-500 text-[10px] hidden sm:block font-medium">
+              <span class="text-slate-500 dark:text-slate-400 text-[10px] hidden sm:block font-medium">
                 منظمة إنسانية تنموية متخصصة
               </span>
             </div>
@@ -98,13 +99,13 @@ import { CommonModule } from '@angular/common';
           <!-- Desktop Navigation Menu -->
           <nav class="hidden xl:flex items-center gap-1.5 2xl:gap-2">
             <!-- الرئيسية -->
-            <a href="#hero" class="nav-item text-[#00284d] hover:text-[#f4921e] px-3.5 py-2 text-sm font-bold rounded-xl transition duration-150">
+            <a href="#hero" class="nav-item text-[#00284d] dark:text-slate-200 hover:text-[#f4921e] dark:hover:text-[#f4921e] px-3.5 py-2 text-sm font-bold rounded-xl transition duration-150">
               الرئيسية
             </a>
 
             <!-- من نحن (Dropdown) -->
             <div class="relative group" (mouseenter)="openDropdown('about')" (mouseleave)="closeDropdown()">
-              <button class="nav-item text-[#00284d] hover:text-[#f4921e] px-3.5 py-2 text-sm font-bold rounded-xl transition duration-150 flex items-center gap-1">
+              <button class="nav-item text-[#00284d] dark:text-slate-200 hover:text-[#f4921e] dark:hover:text-[#f4921e] px-3.5 py-2 text-sm font-bold rounded-xl transition duration-150 flex items-center gap-1">
                 <span>من نحن</span>
                 <svg class="w-3.5 h-3.5 text-slate-400 group-hover:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -116,7 +117,7 @@ import { CommonModule } from '@angular/common';
                 [class.translate-y-0]="activeDropdown() === 'about'"
                 class="absolute right-0 top-full pt-2 w-56 opacity-0 invisible -translate-y-2 transition-all duration-200"
               >
-                <div class="bg-[#00284d] text-white rounded-2xl shadow-2xl border border-white/15 p-2 overflow-hidden backdrop-blur-xl">
+                <div class="bg-[#00284d] dark:bg-[#06182e] text-white rounded-2xl shadow-2xl border border-white/15 p-2 overflow-hidden backdrop-blur-xl">
                   <a href="#about" (click)="closeDropdown()" class="dropdown-link">حول الهيئة</a>
                   <a href="#about" (click)="closeDropdown()" class="dropdown-link">الرؤية والرسالة والأهداف</a>
                   <a href="#about" (click)="closeDropdown()" class="dropdown-link">مجلس الإدارة والهيكل</a>
@@ -127,7 +128,7 @@ import { CommonModule } from '@angular/common';
 
             <!-- المشاريع (Dropdown) -->
             <div class="relative group" (mouseenter)="openDropdown('projects')" (mouseleave)="closeDropdown()">
-              <button class="nav-item text-[#00284d] hover:text-[#f4921e] px-3.5 py-2 text-sm font-bold rounded-xl transition duration-150 flex items-center gap-1">
+              <button class="nav-item text-[#00284d] dark:text-slate-200 hover:text-[#f4921e] dark:hover:text-[#f4921e] px-3.5 py-2 text-sm font-bold rounded-xl transition duration-150 flex items-center gap-1">
                 <span>المشاريع</span>
                 <svg class="w-3.5 h-3.5 text-slate-400 group-hover:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -139,7 +140,7 @@ import { CommonModule } from '@angular/common';
                 [class.translate-y-0]="activeDropdown() === 'projects'"
                 class="absolute right-0 top-full pt-2 w-56 opacity-0 invisible -translate-y-2 transition-all duration-200"
               >
-                <div class="bg-[#00284d] text-white rounded-2xl shadow-2xl border border-white/15 p-2 overflow-hidden backdrop-blur-xl">
+                <div class="bg-[#00284d] dark:bg-[#06182e] text-white rounded-2xl shadow-2xl border border-white/15 p-2 overflow-hidden backdrop-blur-xl">
                   <a href="#projects" (click)="closeDropdown()" class="dropdown-link">في طور الإنجاز</a>
                   <a href="#projects" (click)="closeDropdown()" class="dropdown-link">المشاريع المنجزة</a>
                   <a href="#projects" (click)="closeDropdown()" class="dropdown-link">المشاريع المستقبلية</a>
@@ -150,7 +151,7 @@ import { CommonModule } from '@angular/common';
 
             <!-- أنشطة وأخبار (Dropdown) -->
             <div class="relative group" (mouseenter)="openDropdown('news')" (mouseleave)="closeDropdown()">
-              <button class="nav-item text-[#00284d] hover:text-[#f4921e] px-3.5 py-2 text-sm font-bold rounded-xl transition duration-150 flex items-center gap-1">
+              <button class="nav-item text-[#00284d] dark:text-slate-200 hover:text-[#f4921e] dark:hover:text-[#f4921e] px-3.5 py-2 text-sm font-bold rounded-xl transition duration-150 flex items-center gap-1">
                 <span>أنشطة وأخبار</span>
                 <svg class="w-3.5 h-3.5 text-slate-400 group-hover:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -162,7 +163,7 @@ import { CommonModule } from '@angular/common';
                 [class.translate-y-0]="activeDropdown() === 'news'"
                 class="absolute right-0 top-full pt-2 w-52 opacity-0 invisible -translate-y-2 transition-all duration-200"
               >
-                <div class="bg-[#00284d] text-white rounded-2xl shadow-2xl border border-white/15 p-2 overflow-hidden backdrop-blur-xl">
+                <div class="bg-[#00284d] dark:bg-[#06182e] text-white rounded-2xl shadow-2xl border border-white/15 p-2 overflow-hidden backdrop-blur-xl">
                   <a href="#activities" (click)="closeDropdown()" class="dropdown-link">أنشطتنا الميدانية</a>
                   <a href="#activities" (click)="closeDropdown()" class="dropdown-link">أخبار الهيئة</a>
                   <a href="#activities" (click)="closeDropdown()" class="dropdown-link">حملاتنا (همم الإعمار)</a>
@@ -173,7 +174,7 @@ import { CommonModule } from '@angular/common';
 
             <!-- المركز الإعلامي (Dropdown) -->
             <div class="relative group" (mouseenter)="openDropdown('media')" (mouseleave)="closeDropdown()">
-              <button class="nav-item text-[#00284d] hover:text-[#f4921e] px-3.5 py-2 text-sm font-bold rounded-xl transition duration-150 flex items-center gap-1">
+              <button class="nav-item text-[#00284d] dark:text-slate-200 hover:text-[#f4921e] dark:hover:text-[#f4921e] px-3.5 py-2 text-sm font-bold rounded-xl transition duration-150 flex items-center gap-1">
                 <span>المركز الإعلامي</span>
                 <svg class="w-3.5 h-3.5 text-slate-400 group-hover:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -185,7 +186,7 @@ import { CommonModule } from '@angular/common';
                 [class.translate-y-0]="activeDropdown() === 'media'"
                 class="absolute right-0 top-full pt-2 w-52 opacity-0 invisible -translate-y-2 transition-all duration-200"
               >
-                <div class="bg-[#00284d] text-white rounded-2xl shadow-2xl border border-white/15 p-2 overflow-hidden backdrop-blur-xl">
+                <div class="bg-[#00284d] dark:bg-[#06182e] text-white rounded-2xl shadow-2xl border border-white/15 p-2 overflow-hidden backdrop-blur-xl">
                   <a href="#media" (click)="closeDropdown()" class="dropdown-link">مكتبة الفيديو</a>
                   <a href="#media" (click)="closeDropdown()" class="dropdown-link">مكتبة الصور</a>
                   <a href="#media" (click)="closeDropdown()" class="dropdown-link">تقارير ودراسات</a>
@@ -195,22 +196,22 @@ import { CommonModule } from '@angular/common';
             </div>
 
             <!-- اتصل بنا -->
-            <a href="#footer" class="nav-item text-[#00284d] hover:text-[#f4921e] px-3.5 py-2 text-sm font-bold rounded-xl transition duration-150">
+            <a href="#footer" class="nav-item text-[#00284d] dark:text-slate-200 hover:text-[#f4921e] dark:hover:text-[#f4921e] px-3.5 py-2 text-sm font-bold rounded-xl transition duration-150">
               اتصل بنا
             </a>
           </nav>
 
           <!-- Right Action Buttons -->
-          <div class="flex items-center gap-2.5 sm:gap-3">
+          <div class="flex items-center gap-2 sm:gap-2.5">
             
             <!-- Language Selector Dropdown -->
             <div class="relative" (mouseleave)="isLangMenuOpen.set(false)">
               <button 
                 (click)="toggleLangMenu()"
-                class="h-10 px-3.5 rounded-xl flex items-center gap-2 text-slate-700 hover:text-[#00284d] bg-slate-50 hover:bg-slate-100 transition border border-slate-200 text-xs font-bold shadow-sm"
+                class="h-10 px-3 sm:px-3.5 rounded-xl flex items-center gap-2 text-slate-700 dark:text-slate-200 hover:text-[#00284d] dark:hover:text-white bg-slate-50 dark:bg-[#0b1f36] hover:bg-slate-100 dark:hover:bg-white/10 transition border border-slate-200 dark:border-white/15 text-xs font-bold shadow-sm"
                 title="تغيير اللغة / Change Language"
               >
-                <svg class="w-4 h-4 text-[#004380]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 text-[#004380] dark:text-[#38bdf8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
                 </svg>
                 <span>{{ currentLangLabel() }}</span>
@@ -222,42 +223,51 @@ import { CommonModule } from '@angular/common';
               <!-- Language Dropdown Panel -->
               <div 
                 *ngIf="isLangMenuOpen()"
-                class="absolute left-0 top-full mt-1.5 w-40 bg-white rounded-2xl shadow-xl border border-slate-200 p-1.5 z-50 animate-fadeIn"
+                class="absolute left-0 top-full mt-1.5 w-40 bg-white dark:bg-[#07172b] rounded-2xl shadow-xl border border-slate-200 dark:border-white/15 p-1.5 z-50 animate-fadeIn"
               >
                 <button 
                   (click)="setLanguage('ar')"
-                  class="w-full text-right px-3 py-2 rounded-xl text-xs font-bold transition flex items-center justify-between"
+                  class="w-full text-right px-3 py-2 rounded-xl text-xs font-bold transition flex items-center justify-between dark:hover:bg-white/10"
                   [class.bg-blue-50]="currentLang() === 'ar'"
+                  [class.dark:bg-white/10]="currentLang() === 'ar'"
                   [class.text-[#004380]]="currentLang() === 'ar'"
+                  [class.dark:text-[#38bdf8]]="currentLang() === 'ar'"
                   [class.text-slate-700]="currentLang() !== 'ar'"
+                  [class.dark:text-slate-200]="currentLang() !== 'ar'"
                   [class.hover:bg-slate-50]="currentLang() !== 'ar'"
                 >
                   <span>العربية</span>
-                  <span *ngIf="currentLang() === 'ar'" class="text-[#004380] font-black text-sm">✓</span>
+                  <span *ngIf="currentLang() === 'ar'" class="text-[#004380] dark:text-[#38bdf8] font-black text-sm">✓</span>
                 </button>
 
                 <button 
                   (click)="setLanguage('en')"
-                  class="w-full text-right px-3 py-2 rounded-xl text-xs font-bold transition flex items-center justify-between"
+                  class="w-full text-right px-3 py-2 rounded-xl text-xs font-bold transition flex items-center justify-between dark:hover:bg-white/10"
                   [class.bg-blue-50]="currentLang() === 'en'"
+                  [class.dark:bg-white/10]="currentLang() === 'en'"
                   [class.text-[#004380]]="currentLang() === 'en'"
+                  [class.dark:text-[#38bdf8]]="currentLang() === 'en'"
                   [class.text-slate-700]="currentLang() !== 'en'"
+                  [class.dark:text-slate-200]="currentLang() !== 'en'"
                   [class.hover:bg-slate-50]="currentLang() !== 'en'"
                 >
                   <span>English</span>
-                  <span *ngIf="currentLang() === 'en'" class="text-[#004380] font-black text-sm">✓</span>
+                  <span *ngIf="currentLang() === 'en'" class="text-[#004380] dark:text-[#38bdf8] font-black text-sm">✓</span>
                 </button>
 
                 <button 
                   (click)="setLanguage('tr')"
-                  class="w-full text-right px-3 py-2 rounded-xl text-xs font-bold transition flex items-center justify-between"
+                  class="w-full text-right px-3 py-2 rounded-xl text-xs font-bold transition flex items-center justify-between dark:hover:bg-white/10"
                   [class.bg-blue-50]="currentLang() === 'tr'"
+                  [class.dark:bg-white/10]="currentLang() === 'tr'"
                   [class.text-[#004380]]="currentLang() === 'tr'"
+                  [class.dark:text-[#38bdf8]]="currentLang() === 'tr'"
                   [class.text-slate-700]="currentLang() !== 'tr'"
+                  [class.dark:text-slate-200]="currentLang() !== 'tr'"
                   [class.hover:bg-slate-50]="currentLang() !== 'tr'"
                 >
                   <span>Türkçe</span>
-                  <span *ngIf="currentLang() === 'tr'" class="text-[#004380] font-black text-sm">✓</span>
+                  <span *ngIf="currentLang() === 'tr'" class="text-[#004380] dark:text-[#38bdf8] font-black text-sm">✓</span>
                 </button>
               </div>
             </div>
@@ -265,7 +275,7 @@ import { CommonModule } from '@angular/common';
             <!-- Search Trigger -->
             <button 
               (click)="searchClicked.emit()" 
-              class="w-10 h-10 rounded-xl flex items-center justify-center text-slate-600 hover:text-[#00284d] hover:bg-slate-100 transition border border-slate-200" 
+              class="w-10 h-10 rounded-xl flex items-center justify-center text-slate-600 dark:text-slate-200 hover:text-[#00284d] dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition border border-slate-200 dark:border-white/15" 
               title="بحث سريع"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -273,10 +283,28 @@ import { CommonModule } from '@angular/common';
               </svg>
             </button>
 
+            <!-- Theme Toggle (Dark / Light Mode) -->
+            <button 
+              type="button"
+              (click)="themeService.toggleTheme()" 
+              class="w-10 h-10 rounded-xl flex items-center justify-center text-slate-600 dark:text-slate-200 hover:text-[#f4921e] dark:hover:text-[#f4921e] hover:bg-slate-100 dark:hover:bg-white/10 transition-all duration-200 border border-slate-200 dark:border-white/15 cursor-pointer shadow-sm" 
+              [attr.title]="themeService.isDarkMode() ? 'التبديل إلى الوضع النهاري' : 'التبديل إلى الوضع الليلي'"
+              [attr.aria-label]="themeService.isDarkMode() ? 'التبديل إلى الوضع النهاري' : 'التبديل إلى الوضع الليلي'"
+            >
+              <!-- Sun Icon when dark mode active -->
+              <svg *ngIf="themeService.isDarkMode()" class="w-4 h-4 text-amber-400 transform rotate-0 hover:rotate-45 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+              </svg>
+              <!-- Moon Icon when light mode active -->
+              <svg *ngIf="!themeService.isDarkMode()" class="w-4 h-4 text-[#00284d] transform hover:-rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+              </svg>
+            </button>
+
             <!-- Mobile Hamburger Toggle -->
             <button 
               (click)="toggleMobileMenu()" 
-              class="xl:hidden w-10 h-10 rounded-lg flex items-center justify-center text-[#00284d] hover:bg-slate-100 transition border border-slate-200" 
+              class="xl:hidden w-10 h-10 rounded-lg flex items-center justify-center text-[#00284d] dark:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition border border-slate-200 dark:border-white/15" 
               aria-label="فتح القائمة"
             >
               <svg *ngIf="!isMobileMenuOpen()" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -294,12 +322,12 @@ import { CommonModule } from '@angular/common';
       <!-- Mobile Drawer Navigation -->
       <div 
         *ngIf="isMobileMenuOpen()"
-        class="xl:hidden bg-white border-b border-slate-200 px-5 py-6 shadow-2xl transition-all duration-300 animate-fadeIn"
+        class="xl:hidden bg-white dark:bg-[#07172b] border-b border-slate-200 dark:border-white/10 px-5 py-6 shadow-2xl transition-all duration-300 animate-fadeIn"
       >
-        <div class="flex flex-col gap-4 text-[#00284d]">
+        <div class="flex flex-col gap-4 text-[#00284d] dark:text-white">
           <a href="#hero" (click)="closeMobileMenu()" class="font-black text-base">الرئيسية</a>
           
-          <div class="border-t border-slate-100 pt-3">
+          <div class="border-t border-slate-100 dark:border-white/10 pt-3">
             <span class="text-xs text-[#f4921e] font-extrabold tracking-wider">من نحن</span>
             <div class="grid grid-cols-2 gap-2 mt-2">
               <a href="#about" (click)="closeMobileMenu()" class="mobile-sublink">حول الهيئة</a>
@@ -309,7 +337,7 @@ import { CommonModule } from '@angular/common';
             </div>
           </div>
 
-          <div class="border-t border-slate-100 pt-3">
+          <div class="border-t border-slate-100 dark:border-white/10 pt-3">
             <span class="text-xs text-[#f4921e] font-extrabold tracking-wider">المشاريع</span>
             <div class="grid grid-cols-2 gap-2 mt-2">
               <a href="#projects" (click)="closeMobileMenu()" class="mobile-sublink">في طور الإنجاز</a>
@@ -319,7 +347,7 @@ import { CommonModule } from '@angular/common';
             </div>
           </div>
 
-          <div class="border-t border-slate-100 pt-3">
+          <div class="border-t border-slate-100 dark:border-white/10 pt-3">
             <span class="text-xs text-[#f4921e] font-extrabold tracking-wider">أنشطة وأخبار</span>
             <div class="grid grid-cols-2 gap-2 mt-2">
               <a href="#activities" (click)="closeMobileMenu()" class="mobile-sublink">أنشطة ميدانية</a>
@@ -329,7 +357,7 @@ import { CommonModule } from '@angular/common';
             </div>
           </div>
 
-          <div class="border-t border-slate-100 pt-3">
+          <div class="border-t border-slate-100 dark:border-white/10 pt-3">
             <span class="text-xs text-[#f4921e] font-extrabold tracking-wider">المركز الإعلامي</span>
             <div class="grid grid-cols-2 gap-2 mt-2">
               <a href="#media" (click)="closeMobileMenu()" class="mobile-sublink">مكتبة الفيديو</a>
@@ -339,12 +367,24 @@ import { CommonModule } from '@angular/common';
             </div>
           </div>
 
-          <div class="border-t border-slate-100 pt-4 flex items-center justify-between">
-            <a href="#footer" (click)="closeMobileMenu()" class="font-bold text-sm text-slate-700 hover:text-[#00284d]">اتصل بنا</a>
-            <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
-              <button (click)="setLanguage('ar')" class="px-2.5 py-1 rounded-lg text-xs font-bold transition" [class.bg-white]="currentLang() === 'ar'" [class.text-[#004380]]="currentLang() === 'ar'" [class.shadow-sm]="currentLang() === 'ar'">عربي</button>
-              <button (click)="setLanguage('en')" class="px-2.5 py-1 rounded-lg text-xs font-bold transition" [class.bg-white]="currentLang() === 'en'" [class.text-[#004380]]="currentLang() === 'en'" [class.shadow-sm]="currentLang() === 'en'">EN</button>
-              <button (click)="setLanguage('tr')" class="px-2.5 py-1 rounded-lg text-xs font-bold transition" [class.bg-white]="currentLang() === 'tr'" [class.text-[#004380]]="currentLang() === 'tr'" [class.shadow-sm]="currentLang() === 'tr'">TR</button>
+          <!-- Mobile Theme Toggle -->
+          <div class="border-t border-slate-100 dark:border-white/10 pt-3">
+            <button 
+              type="button"
+              (click)="themeService.toggleTheme()"
+              class="w-full py-2.5 px-3 rounded-xl flex items-center justify-between text-xs font-bold bg-slate-100 dark:bg-white/10 text-[#00284d] dark:text-white transition"
+            >
+              <span>{{ themeService.isDarkMode() ? '☀️ التبديل إلى الوضع النهاري' : '🌙 التبديل إلى الوضع الليلي' }}</span>
+              <span class="text-[11px] text-[#f4921e] font-bold">{{ themeService.isDarkMode() ? 'الوضع الليلي مفعّل' : 'الوضع النهاري مفعّل' }}</span>
+            </button>
+          </div>
+
+          <div class="border-t border-slate-100 dark:border-white/10 pt-4 flex items-center justify-between">
+            <a href="#footer" (click)="closeMobileMenu()" class="font-bold text-sm text-slate-700 dark:text-slate-300 hover:text-[#00284d] dark:hover:text-white">اتصل بنا</a>
+            <div class="flex items-center gap-1 bg-slate-100 dark:bg-white/10 p-1 rounded-xl">
+              <button (click)="setLanguage('ar')" class="px-2.5 py-1 rounded-lg text-xs font-bold transition" [class.bg-white]="currentLang() === 'ar'" [class.dark:bg-[#004380]]="currentLang() === 'ar'" [class.text-[#004380]]="currentLang() === 'ar'" [class.dark:text-white]="currentLang() === 'ar'" [class.shadow-sm]="currentLang() === 'ar'">عربي</button>
+              <button (click)="setLanguage('en')" class="px-2.5 py-1 rounded-lg text-xs font-bold transition" [class.bg-white]="currentLang() === 'en'" [class.dark:bg-[#004380]]="currentLang() === 'en'" [class.text-[#004380]]="currentLang() === 'en'" [class.dark:text-white]="currentLang() === 'en'" [class.shadow-sm]="currentLang() === 'en'">EN</button>
+              <button (click)="setLanguage('tr')" class="px-2.5 py-1 rounded-lg text-xs font-bold transition" [class.bg-white]="currentLang() === 'tr'" [class.dark:bg-[#004380]]="currentLang() === 'tr'" [class.text-[#004380]]="currentLang() === 'tr'" [class.dark:text-white]="currentLang() === 'tr'" [class.shadow-sm]="currentLang() === 'tr'">TR</button>
             </div>
           </div>
         </div>
@@ -413,6 +453,12 @@ import { CommonModule } from '@angular/common';
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       font-weight: 600;
+      color: #00284d;
+    }
+    :host-context(.dark) .mobile-sublink {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.12);
+      color: #f8fafc;
     }
     .mobile-sublink:hover {
       color: #f4921e;
@@ -430,6 +476,8 @@ import { CommonModule } from '@angular/common';
 export class HeaderComponent implements OnInit {
   @Output() searchClicked = new EventEmitter<void>();
   @Output() donateClicked = new EventEmitter<void>();
+
+  themeService = inject(ThemeService);
 
   isScrolled = signal(false);
   isMobileMenuOpen = signal(false);

@@ -8,26 +8,26 @@ import { ProjectItem } from '../../models/website.models';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <section id="projects" class="py-20 lg:py-28 bg-[#f1f5f9]/70 relative border-t border-b border-slate-200">
+    <section id="projects" class="py-20 lg:py-28 bg-[#f1f5f9]/70 dark:bg-[#030d1a] relative border-t border-b border-slate-200 dark:border-white/10 transition-colors duration-300">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <!-- Header -->
         <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-[#775a19] border border-amber-200">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold bg-amber-50 dark:bg-amber-500/10 text-[#775a19] dark:text-amber-300 border border-amber-200 dark:border-amber-500/20">
             <span class="w-2 h-2 rounded-full bg-[#f4921e]"></span>
             <span>بناء الأمل واستعادة الحياة</span>
           </div>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-[#00284d] tracking-tight">
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-[#00284d] dark:text-white tracking-tight transition-colors">
             مشاريع الإعمار والتنمية
           </h2>
-          <p class="text-slate-600 text-base">
+          <p class="text-slate-600 dark:text-slate-300 text-base transition-colors">
             مشاريع هندسية متخصصة تركز على استعادة البنية التحتية، توفير المأوى الكريم، تأهيل شبكات المياه والصحة، وتوثيق الاحتياجات العاجلة في فلسطين.
           </p>
         </div>
 
         <!-- Sector Band Filter Strip (Exact Replica from donate.aiocp.org) -->
         <div class="flex items-center justify-center mb-12 overflow-x-auto max-w-full px-2 pb-2 scrollbar-none">
-          <div role="group" class="sector-band__strip flex flex-nowrap gap-1.5 sm:gap-2 w-max shrink-0 p-1.5 sm:p-2 bg-white rounded-full border border-slate-200/90 shadow-sm" aria-label="اختيار القطاع">
+          <div role="group" class="sector-band__strip flex flex-nowrap gap-1.5 sm:gap-2 w-max shrink-0 p-1.5 sm:p-2 bg-white dark:bg-[#091b2e] rounded-full border border-slate-200/90 dark:border-white/10 shadow-sm" aria-label="اختيار القطاع">
             
             <!-- All Sectors Chip -->
             <button 
@@ -52,7 +52,9 @@ import { ProjectItem } from '../../models/website.models';
                 [class.bg-white/20]="activeSector() === 'all'"
                 [class.text-white]="activeSector() === 'all'"
                 [class.bg-slate-200/70]="activeSector() !== 'all'"
-                [class.text-slate-600]="activeSector() !== 'all'">
+                [class.dark:bg-white/10]="activeSector() !== 'all'"
+                [class.text-slate-600]="activeSector() !== 'all'"
+                [class.dark:text-slate-300]="activeSector() !== 'all'">
                 {{ getCountForSector('all') }}
               </span>
             </button>
@@ -75,7 +77,9 @@ import { ProjectItem } from '../../models/website.models';
                 [class.bg-white/20]="activeSector() === s.key"
                 [class.text-white]="activeSector() === s.key"
                 [class.bg-slate-200/70]="activeSector() !== s.key"
-                [class.text-slate-600]="activeSector() !== s.key">
+                [class.dark:bg-white/10]="activeSector() !== s.key"
+                [class.text-slate-600]="activeSector() !== s.key"
+                [class.dark:text-slate-300]="activeSector() !== s.key">
                 {{ getCountForSector(s.key) }}
               </span>
             </button>
@@ -87,7 +91,7 @@ import { ProjectItem } from '../../models/website.models';
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div 
             *ngFor="let proj of filteredProjects"
-            class="bg-white rounded-3xl overflow-hidden border border-slate-200/90 shadow-[0_4px_20px_-4px_rgba(0,40,77,0.08)] hover:shadow-[0_20px_40px_-12px_rgba(0,40,77,0.16)] transition-all duration-300 hover:-translate-y-1.5 flex flex-col group"
+            class="bg-white dark:bg-[#091b2e] rounded-3xl overflow-hidden border border-slate-200/90 dark:border-white/10 shadow-[0_4px_20px_-4px_rgba(0,40,77,0.08)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_40px_-12px_rgba(0,40,77,0.16)] dark:hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.7)] transition-all duration-300 hover:-translate-y-1.5 flex flex-col group"
           >
             <!-- Image & Badges -->
             <div class="relative h-56 sm:h-60 overflow-hidden shrink-0">
@@ -127,50 +131,50 @@ import { ProjectItem } from '../../models/website.models';
             <div class="p-5 sm:p-6 flex flex-col flex-1 justify-between gap-3.5">
               <div class="space-y-2">
                 <!-- Title -->
-                <h3 class="text-[17px] sm:text-lg font-black text-[#00284d] group-hover:text-[#046bd2] transition-colors line-clamp-2 leading-snug min-h-[2.75rem]">
+                <h3 class="text-[17px] sm:text-lg font-black text-[#00284d] dark:text-white group-hover:text-[#046bd2] dark:group-hover:text-[#38bdf8] transition-colors line-clamp-2 leading-snug min-h-[2.75rem]">
                   {{ proj.title }}
                 </h3>
 
                 <!-- Excerpt -->
-                <p class="text-slate-600 text-xs sm:text-[13px] line-clamp-2 leading-relaxed font-normal min-h-[2.5rem]">
+                <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-[13px] line-clamp-2 leading-relaxed font-normal min-h-[2.5rem] transition-colors">
                   {{ proj.description }}
                 </p>
               </div>
 
               <!-- Financial & Impact Highlight Box -->
-              <div class="bg-gradient-to-br from-slate-50 via-slate-50 to-[#f0f7ff] rounded-2xl p-3.5 border border-slate-200/80 space-y-2.5">
+              <div class="bg-gradient-to-br from-slate-50 via-slate-50 to-[#f0f7ff] dark:from-white/[0.04] dark:via-white/[0.03] dark:to-white/[0.02] rounded-2xl p-3.5 border border-slate-200/80 dark:border-white/10 space-y-2.5 transition-colors">
                 <div class="flex items-center justify-between gap-3">
                   <div class="space-y-0.5 min-w-0">
-                    <span class="text-[11px] font-bold text-slate-500 flex items-center gap-1.5">
+                    <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
                       <span class="w-2 h-2 rounded-full bg-[#f4921e]"></span>
                       <span>قيمة التمويل المطلوب</span>
                     </span>
-                    <span class="text-lg sm:text-xl font-black text-[#00284d] font-mono tracking-tight block">
+                    <span class="text-lg sm:text-xl font-black text-[#00284d] dark:text-white font-mono tracking-tight block">
                       {{ proj.targetedBudget }}
                     </span>
                   </div>
 
-                  <div class="text-left space-y-0.5 border-r border-slate-200/80 pr-3.5 shrink-0">
-                    <span class="text-[11px] font-bold text-slate-500 block">المستفيدون المقدرون</span>
-                    <span class="text-xs sm:text-sm font-extrabold text-[#046bd2] block">
+                  <div class="text-left space-y-0.5 border-r border-slate-200/80 dark:border-white/10 pr-3.5 shrink-0">
+                    <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400 block">المستفيدون المقدرون</span>
+                    <span class="text-xs sm:text-sm font-extrabold text-[#046bd2] dark:text-[#38bdf8] block">
                       {{ proj.beneficiaries }}
                     </span>
                   </div>
                 </div>
 
                 <!-- Collected / Raised Amount Row -->
-                <div *ngIf="proj.raisedBudget" class="pt-2 border-t border-slate-200/60 flex items-center justify-between text-xs">
-                  <span class="text-slate-500 font-medium">التمويل المحصل:</span>
-                  <span class="font-bold font-mono text-emerald-600">{{ proj.raisedBudget }}</span>
+                <div *ngIf="proj.raisedBudget" class="pt-2 border-t border-slate-200/60 dark:border-white/10 flex items-center justify-between text-xs">
+                  <span class="text-slate-500 dark:text-slate-400 font-medium">التمويل المحصل:</span>
+                  <span class="font-bold font-mono text-emerald-600 dark:text-emerald-400">{{ proj.raisedBudget }}</span>
                 </div>
               </div>
 
               <!-- Single Clean Action Button (تفاصيل المشروع - Compact with no empty gap) -->
               <button 
                 (click)="projectDetails.emit(proj)"
-                class="w-full py-2.5 sm:py-3 px-4 rounded-xl bg-slate-50 hover:bg-[#004380] text-[#00284d] hover:text-white border border-slate-200/90 hover:border-[#004380] text-xs sm:text-sm font-bold transition-all duration-200 flex items-center justify-center gap-2 shadow-sm cursor-pointer group/btn"
+                class="w-full py-2.5 sm:py-3 px-4 rounded-xl bg-slate-50 dark:bg-white/5 hover:bg-[#004380] dark:hover:bg-[#004380] text-[#00284d] dark:text-white hover:text-white border border-slate-200/90 dark:border-white/10 hover:border-[#004380] text-xs sm:text-sm font-bold transition-all duration-200 flex items-center justify-center gap-2 shadow-sm cursor-pointer group/btn"
               >
-                <svg class="w-4 h-4 text-slate-400 group-hover/btn:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                <svg class="w-4 h-4 text-slate-400 dark:text-slate-300 group-hover/btn:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                 <span>تفاصيل المشروع</span>
               </button>
 
@@ -186,6 +190,10 @@ import { ProjectItem } from '../../models/website.models';
     .sector-band__strip {
       box-shadow: 0 4px 20px -4px rgba(0, 40, 77, 0.08);
     }
+    :host-context(html.dark) .sector-band__strip,
+    html.dark .sector-band__strip {
+      box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.5);
+    }
     .sector-band__chip {
       --chip: #046bd2;
       background: #f8fafc;
@@ -194,10 +202,22 @@ import { ProjectItem } from '../../models/website.models';
       color: #334155;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
     }
+    :host-context(html.dark) .sector-band__chip,
+    html.dark .sector-band__chip {
+      background: #0d233a;
+      border-color: rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+    }
     .sector-band__chip:hover {
       background: #ffffff;
       border-color: color-mix(in srgb, var(--chip) 60%, #cbd5e1);
       transform: translateY(-1px);
+    }
+    :host-context(html.dark) .sector-band__chip:hover,
+    html.dark .sector-band__chip:hover {
+      background: #132f4c;
+      border-color: color-mix(in srgb, var(--chip) 70%, #ffffff);
+      color: #ffffff;
     }
     .sector-band__chip--on {
       background: var(--chip) !important;
@@ -208,6 +228,10 @@ import { ProjectItem } from '../../models/website.models';
     .sector-band__mark {
       background: rgba(0, 0, 0, 0.05);
       transition: background-color 0.2s ease;
+    }
+    :host-context(html.dark) .sector-band__mark,
+    html.dark .sector-band__mark {
+      background: rgba(255, 255, 255, 0.1);
     }
     .sector-band__chip--on .sector-band__mark {
       background: #ffffff !important;

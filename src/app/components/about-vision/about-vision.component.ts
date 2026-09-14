@@ -7,44 +7,44 @@ import { WebsiteDataService } from '../../services/website-data.service';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <section id="about" class="py-20 lg:py-28 relative">
+    <section id="about" class="py-20 lg:py-28 relative dark:bg-[#030d1a] transition-colors duration-300">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <!-- About Overview Hero Banner -->
-        <div class="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden mb-20">
+        <div class="bg-white dark:bg-[#091b2e] rounded-3xl border border-slate-200 dark:border-white/10 shadow-xl overflow-hidden mb-20 transition-colors">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-8 sm:p-12 lg:p-16">
             
             <div class="lg:col-span-7 space-y-6">
-              <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-[#004380] border border-blue-200">
-                <span class="w-2 h-2 rounded-full bg-[#004380]"></span>
+              <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold bg-blue-50 dark:bg-blue-500/10 text-[#004380] dark:text-sky-300 border border-blue-200 dark:border-blue-500/20">
+                <span class="w-2 h-2 rounded-full bg-[#004380] dark:bg-sky-400"></span>
                 <span>من نحن • الهيئة في سطور</span>
               </div>
 
-              <h2 class="text-3xl sm:text-4xl font-extrabold text-[#00284d] leading-tight">
+              <h2 class="text-3xl sm:text-4xl font-extrabold text-[#00284d] dark:text-white leading-tight transition-colors">
                 رواد الهندسة والإعمار لدعم صمود الشعب الفلسطيني
               </h2>
 
-              <p class="text-slate-600 text-base sm:text-lg leading-relaxed">
+              <p class="text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed transition-colors">
                 الهيئة العربية الدولية للإعمار في فلسطين هيئة مهنية مستقلة غير ربحية، تأسست بمبادرة من كوكبة من الشخصيات العربية ونقابات المهندسين والمؤسسات التنموية، بهدف توحيد الجهود الهندسية والمالية لإعادة إعمار ما دمره الاحتلال في فلسطين، وتثبيت المواطنين فوق أرضهم عبر مشاريع تنموية مستدامة وفق أرفع معايير الحوكمة والنزاهة الدولية.
               </p>
 
               <!-- Highlights list -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                 <div class="flex items-center gap-3">
-                  <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0 font-bold">✓</div>
-                  <span class="text-sm font-bold text-slate-800">إشراف هندسي ونقابي معتمد</span>
+                  <div class="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0 font-bold">✓</div>
+                  <span class="text-sm font-bold text-slate-800 dark:text-slate-200">إشراف هندسي ونقابي معتمد</span>
                 </div>
                 <div class="flex items-center gap-3">
-                  <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0 font-bold">✓</div>
-                  <span class="text-sm font-bold text-slate-800">عضوية في كتل الأمم المتحدة الإنسانية</span>
+                  <div class="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0 font-bold">✓</div>
+                  <span class="text-sm font-bold text-slate-800 dark:text-slate-200">عضوية في كتل الأمم المتحدة الإنسانية</span>
                 </div>
                 <div class="flex items-center gap-3">
-                  <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0 font-bold">✓</div>
-                  <span class="text-sm font-bold text-slate-800">رقابة مالية وتدقيق دولي مستقل</span>
+                  <div class="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0 font-bold">✓</div>
+                  <span class="text-sm font-bold text-slate-800 dark:text-slate-200">رقابة مالية وتدقيق دولي مستقل</span>
                 </div>
                 <div class="flex items-center gap-3">
-                  <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0 font-bold">✓</div>
-                  <span class="text-sm font-bold text-slate-800">طواقم ميدانية تعمل على مدار الساعة</span>
+                  <div class="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0 font-bold">✓</div>
+                  <span class="text-sm font-bold text-slate-800 dark:text-slate-200">طواقم ميدانية تعمل على مدار الساعة</span>
                 </div>
               </div>
 
@@ -83,10 +83,10 @@ import { WebsiteDataService } from '../../services/website-data.service';
         <!-- 3 Strategic Pillars (Vision, Mission, Objectives) -->
         <div class="mb-20">
           <div class="text-center max-w-2xl mx-auto mb-12 space-y-2">
-            <h3 class="text-2xl sm:text-3xl font-extrabold text-[#00284d]">
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-[#00284d] dark:text-white transition-colors">
               الرؤية والرسالة والأهداف الاستراتيجية
             </h3>
-            <p class="text-slate-600 text-sm sm:text-base">
+            <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base transition-colors">
               منظومة قيم مؤسسية راسخة تحدد بوصلة العمل والإعمار التنموي المستدام.
             </p>
           </div>
@@ -94,7 +94,7 @@ import { WebsiteDataService } from '../../services/website-data.service';
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div 
               *ngFor="let pillar of strategicPillars"
-              class="bg-white rounded-2xl p-8 border border-slate-200/80 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between group"
+              class="bg-white dark:bg-[#091b2e] rounded-2xl p-8 border border-slate-200/80 dark:border-white/10 shadow-lg dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.5)] hover:shadow-2xl dark:hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.7)] transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between group"
             >
               <div class="space-y-4">
                 <div class="w-14 h-14 rounded-2xl bg-gradient-to-br {{ pillar.accent }} text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
@@ -104,11 +104,11 @@ import { WebsiteDataService } from '../../services/website-data.service';
                 </div>
 
                 <div>
-                  <h4 class="text-xl font-extrabold text-[#00284d]">{{ pillar.title }}</h4>
+                  <h4 class="text-xl font-extrabold text-[#00284d] dark:text-white transition-colors">{{ pillar.title }}</h4>
                   <span class="text-xs font-bold text-[#f4921e]">{{ pillar.subtitle }}</span>
                 </div>
 
-                <p class="text-slate-600 text-sm leading-relaxed">
+                <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed transition-colors">
                   {{ pillar.description }}
                 </p>
               </div>
@@ -141,13 +141,13 @@ import { WebsiteDataService } from '../../services/website-data.service';
         <!-- Strategic Partners Section -->
         <div>
           <div class="text-center max-w-2xl mx-auto mb-10 space-y-2">
-            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10">
               <span>تحالفات إنسانية وهندسية متينة</span>
             </div>
-            <h3 class="text-2xl sm:text-3xl font-extrabold text-[#00284d]">
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-[#00284d] dark:text-white transition-colors">
               شركاؤنا في النجاح والإعمار
             </h3>
-            <p class="text-slate-600 text-sm">
+            <p class="text-slate-600 dark:text-slate-300 text-sm transition-colors">
               تفخر الهيئة بشراكاتها الاستراتيجية مع كبرى منظمات الأمم المتحدة، الوزارات المختصة، ونقابات المهندسين.
             </p>
           </div>
@@ -155,12 +155,12 @@ import { WebsiteDataService } from '../../services/website-data.service';
           <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 items-center">
             <div 
               *ngFor="let partner of partners"
-              class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col items-center text-center justify-center gap-3 h-36 group"
+              class="bg-white dark:bg-[#091b2e] rounded-2xl p-4 border border-slate-200/80 dark:border-white/10 shadow-sm hover:shadow-md dark:shadow-[0_2px_10px_rgba(0,0,0,0.4)] transition-all duration-300 flex flex-col items-center text-center justify-center gap-3 h-36 group"
             >
               <img [src]="partner.logo" [alt]="partner.name" class="h-12 max-w-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300" />
               <div>
-                <span class="block text-[11px] font-bold text-slate-800 line-clamp-1">{{ partner.name }}</span>
-                <span class="block text-[10px] text-slate-400">{{ partner.category }}</span>
+                <span class="block text-[11px] font-bold text-slate-800 dark:text-slate-200 line-clamp-1">{{ partner.name }}</span>
+                <span class="block text-[10px] text-slate-400 dark:text-slate-400">{{ partner.category }}</span>
               </div>
             </div>
           </div>
