@@ -4,6 +4,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { HeroSliderComponent } from './components/hero-slider/hero-slider.component';
 import { NewsActivitiesComponent } from './components/news-activities/news-activities.component';
 import { ProjectsComponent } from './components/projects/projects.component';
+import { DirectDonationComponent } from './components/direct-donation/direct-donation.component';
 import { MediaCenterComponent } from './components/media-center/media-center.component';
 import { AboutVisionPartnersComponent } from './components/about-vision/about-vision.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -19,6 +20,7 @@ import { ProjectItem, MediaItem, NewsArticle } from './models/website.models';
     HeroSliderComponent,
     NewsActivitiesComponent,
     ProjectsComponent,
+    DirectDonationComponent,
     MediaCenterComponent,
     AboutVisionPartnersComponent,
     FooterComponent,

@@ -206,50 +206,66 @@ import { HeroSlide } from '../../models/website.models';
           </div>
         </div>
 
-        <!-- Confidence Metrics Bar (Light Card Styling) -->
-        <div class="bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-xl relative z-10">
-          <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center divide-y lg:divide-y-0 lg:divide-x lg:divide-x-reverse divide-slate-100">
+        <!-- Confidence Metrics Bar (Impact Indicators Bar with Neat Icons) -->
+        <div class="bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-[0_10px_35px_-8px_rgba(0,40,77,0.08)] relative z-10">
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4 text-center divide-y lg:divide-y-0 lg:divide-x lg:divide-x-reverse divide-slate-100">
             
-            <div class="pt-2 lg:pt-0 space-y-1">
-              <span class="block text-2xl sm:text-3xl font-black text-[#004380] font-display">+29M$</span>
-              <span class="block text-xs font-bold text-slate-800">مذكرات شراكة دولية</span>
-              <span class="block text-[11px] text-slate-500">تمويل مباشر لمشاريع الطوارئ</span>
+            <!-- Metric 1: International Partnerships / Funding -->
+            <div class="pt-4 lg:pt-0 px-2 sm:px-4 group cursor-default transition-all duration-300 hover:-translate-y-1">
+              <div class="w-13 h-13 rounded-2xl bg-blue-50/80 text-[#004380] border border-blue-100/90 flex items-center justify-center mx-auto mb-3.5 shadow-sm group-hover:scale-110 group-hover:bg-[#004380] group-hover:text-white transition-all duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+              </div>
+              <div class="space-y-1">
+                <span class="block text-2xl sm:text-3xl font-black text-[#00284d] font-mono tracking-tight">$29M+</span>
+                <span class="block text-xs sm:text-sm font-extrabold text-slate-800">مذكرات شراكة دولية</span>
+                <span class="block text-[11px] text-slate-500 font-medium">تمويل مباشر لمشاريع الطوارئ</span>
+              </div>
             </div>
 
-            <div class="pt-2 lg:pt-0 space-y-1">
-              <span class="block text-2xl sm:text-3xl font-black text-[#f4921e] font-display">+1,500,000</span>
-              <span class="block text-xs font-bold text-slate-800">مستفيد ومستفيدة</span>
-              <span class="block text-[11px] text-slate-500">في قطاعات الإيواء والمياه والصحة</span>
+            <!-- Metric 2: Beneficiaries -->
+            <div class="pt-4 lg:pt-0 px-2 sm:px-4 group cursor-default transition-all duration-300 hover:-translate-y-1">
+              <div class="w-13 h-13 rounded-2xl bg-orange-50/80 text-[#f4921e] border border-orange-100/90 flex items-center justify-center mx-auto mb-3.5 shadow-sm group-hover:scale-110 group-hover:bg-[#f4921e] group-hover:text-white transition-all duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                </svg>
+              </div>
+              <div class="space-y-1">
+                <span class="block text-2xl sm:text-3xl font-black text-[#f4921e] font-mono tracking-tight">1,500,000+</span>
+                <span class="block text-xs sm:text-sm font-extrabold text-slate-800">مستفيد ومستفيدة</span>
+                <span class="block text-[11px] text-slate-500 font-medium">في قطاعات الإيواء والمياه والصحة</span>
+              </div>
             </div>
 
-            <div class="pt-2 lg:pt-0 space-y-1">
-              <span class="block text-2xl sm:text-3xl font-black text-emerald-600 font-display">+450</span>
-              <span class="block text-xs font-bold text-slate-800">مشروع هندسي منجز</span>
-              <span class="block text-[11px] text-slate-500">بمعايير جودة ورقابة دولية</span>
+            <!-- Metric 3: Completed Engineering Projects -->
+            <div class="pt-4 lg:pt-0 px-2 sm:px-4 group cursor-default transition-all duration-300 hover:-translate-y-1">
+              <div class="w-13 h-13 rounded-2xl bg-emerald-50/80 text-emerald-600 border border-emerald-100/90 flex items-center justify-center mx-auto mb-3.5 shadow-sm group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                </svg>
+              </div>
+              <div class="space-y-1">
+                <span class="block text-2xl sm:text-3xl font-black text-emerald-600 font-mono tracking-tight">450+</span>
+                <span class="block text-xs sm:text-sm font-extrabold text-slate-800">مشروع هندسي منجز</span>
+                <span class="block text-[11px] text-slate-500 font-medium">بمعايير جودة ورقابة دولية</span>
+              </div>
             </div>
 
-            <div class="pt-2 lg:pt-0 space-y-1">
-              <span class="block text-2xl sm:text-3xl font-black text-slate-700 font-display">15+ عاماً</span>
-              <span class="block text-xs font-bold text-slate-800">من العطاء المؤسسي</span>
-              <span class="block text-[11px] text-slate-500">خبرة متخصصة ومصداقية رفيعة</span>
+            <!-- Metric 4: 15+ Years Legacy -->
+            <div class="pt-4 lg:pt-0 px-2 sm:px-4 group cursor-default transition-all duration-300 hover:-translate-y-1">
+              <div class="w-13 h-13 rounded-2xl bg-slate-100/80 text-[#00284d] border border-slate-200/90 flex items-center justify-center mx-auto mb-3.5 shadow-sm group-hover:scale-110 group-hover:bg-[#00284d] group-hover:text-white transition-all duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+              </div>
+              <div class="space-y-1">
+                <span class="block text-2xl sm:text-3xl font-black text-[#00284d] font-display tracking-tight">15+ عاماً</span>
+                <span class="block text-xs sm:text-sm font-extrabold text-slate-800">من العطاء المؤسسي</span>
+                <span class="block text-[11px] text-slate-500 font-medium">خبرة متخصصة ومصداقية رفيعة</span>
+              </div>
             </div>
 
-          </div>
-        </div>
-
-        <!-- Breaking News Ticker Strip -->
-        <div class="mt-8 bg-white border border-slate-200 rounded-2xl p-3 shadow-sm flex items-center gap-4 text-xs overflow-hidden relative z-10">
-          <div class="flex-shrink-0 flex items-center gap-2 font-bold text-[#b86100] bg-orange-50 px-3 py-1.5 rounded-xl border border-orange-200">
-            <span class="w-2 h-2 rounded-full bg-[#f4921e] animate-ping"></span>
-            <span>تحديثات عاجلة:</span>
-          </div>
-          <div class="overflow-hidden relative flex-1">
-            <div class="whitespace-nowrap flex items-center gap-8 animate-ticker text-slate-600 font-medium">
-              <span *ngFor="let item of breakingNews" class="inline-flex items-center gap-2">
-                <span class="text-[#004380]">✦</span>
-                <span>{{ item }}</span>
-              </span>
-            </div>
           </div>
         </div>
 

@@ -1,4 +1,4 @@
-import { Component, HostListener, Output, EventEmitter, signal, computed } from '@angular/core';
+import { Component, HostListener, Output, EventEmitter, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -59,13 +59,15 @@ import { CommonModule } from '@angular/common';
       </div>
     </div>
 
-    <!-- Main Navigation Header (Clean, Light Glass with Navy Brand & Shadow) -->
+    <!-- Main Navigation Header (Clean, Light Glass with Navy Brand & Shadow - Fixed on Scroll) -->
     <header 
-      class="sticky top-0 left-0 right-0 z-40 transition-all duration-300 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-sm"
-      [class.shadow-md]="isScrolled()"
+      class="w-full transition-all duration-300 bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-sm"
+      [class.navbar-fixed]="isScrolled()"
+      [class.relative]="!isScrolled()"
+      [class.z-40]="!isScrolled()"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-20 transition-all duration-300" [class.h-18]="isScrolled()">
+        <div class="flex items-center justify-between transition-all duration-300" [class.h-16]="isScrolled()" [class.h-20]="!isScrolled()">
           
           <!-- Logo & Brand Name -->
           <a href="#" class="flex items-center gap-3.5 group focus:outline-none">
@@ -73,7 +75,11 @@ import { CommonModule } from '@angular/common';
               <img 
                 src="images/logo-palimar.png" 
                 alt="شعار الهيئة العربية الدولية للإعمار في فلسطين" 
-                class="h-12 sm:h-13 w-auto object-contain"
+                class="transition-all duration-200 object-contain"
+                [class.h-10]="isScrolled()"
+                [class.h-12]="!isScrolled()"
+                [class.sm:h-11]="isScrolled()"
+                [class.sm:h-13]="!isScrolled()"
               />
             </div>
             <div class="flex flex-col text-right">
@@ -344,8 +350,31 @@ import { CommonModule } from '@angular/common';
         </div>
       </div>
     </header>
+
+    <!-- Spacer when header is fixed to prevent layout shift / jumping -->
+    <div *ngIf="isScrolled()" class="h-20" aria-hidden="true"></div>
   `,
   styles: [`
+    :host {
+      display: block;
+    }
+    .navbar-fixed {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      z-index: 50 !important;
+      box-shadow: 0 4px 20px -2px rgba(0, 40, 77, 0.12), 0 2px 6px -1px rgba(0, 40, 77, 0.08) !important;
+      animation: navFixedSlide 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes navFixedSlide {
+      from {
+        transform: translateY(-100%);
+      }
+      to {
+        transform: translateY(0);
+      }
+    }
     .nav-item {
       position: relative;
     }
@@ -398,7 +427,7 @@ import { CommonModule } from '@angular/common';
     }
   `]
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   @Output() searchClicked = new EventEmitter<void>();
   @Output() donateClicked = new EventEmitter<void>();
 
@@ -417,9 +446,22 @@ export class HeaderComponent {
     }
   });
 
+  ngOnInit() {
+    if (typeof window !== 'undefined') {
+      this.isScrolled.set(window.scrollY > 50);
+    }
+  }
+
   @HostListener('window:scroll')
   onScroll() {
-    this.isScrolled.set(window.scrollY > 20);
+    if (typeof window !== 'undefined') {
+      const y = window.scrollY;
+      if (!this.isScrolled() && y > 50) {
+        this.isScrolled.set(true);
+      } else if (this.isScrolled() && y < 20) {
+        this.isScrolled.set(false);
+      }
+    }
   }
 
   openDropdown(name: string) {

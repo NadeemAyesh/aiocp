@@ -33,9 +33,14 @@
 
     <!-- 6. About Us, Vision, Mission, Goals, Statistics & Partners -->
     <app-about-vision></app-about-vision>
+
+    <!-- 7. Direct Contribution & Donation Gateway Section (ترغب في المساهمة وإعادة إعمار غزة؟) -->
+    <app-direct-donation
+      (openDonate)="onOpenDonate()"
+    ></app-direct-donation>
   </main>
 
-  <!-- 7. Footer (Exact Clone from donate.aiocp.org) -->
+  <!-- 8. Footer (Exact Clone from donate.aiocp.org) -->
   <app-footer 
     (sharePage)="onOpenShare()"
   ></app-footer>

@@ -45,22 +45,22 @@ import { ProjectItem, MediaItem, NewsArticle } from '../../models/website.models
           </p>
 
           <!-- Metrics Box -->
-          <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+          <div class="bg-gradient-to-br from-slate-50 to-[#f0f7ff] rounded-2xl p-5 border border-slate-200 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
             <div>
-              <span class="block text-xs text-slate-400">نسبة الإنجاز</span>
-              <span class="font-black text-lg text-[#004380]">{{ selectedProject.progressPercentage }}%</span>
+              <span class="block text-xs font-medium text-slate-500 mb-1">قيمة التمويل المطلوب</span>
+              <span class="font-black text-lg text-[#00284d] font-mono">{{ selectedProject.targetedBudget }}</span>
             </div>
             <div>
-              <span class="block text-xs text-slate-400">الميزانية المقدرة</span>
-              <span class="font-bold text-sm text-slate-800">{{ selectedProject.targetedBudget }}</span>
+              <span class="block text-xs font-medium text-slate-500 mb-1">التمويل المحصل</span>
+              <span class="font-bold text-base text-emerald-600 font-mono">{{ selectedProject.raisedBudget }}</span>
             </div>
             <div>
-              <span class="block text-xs text-slate-400">المبلغ المجموع</span>
-              <span class="font-bold text-sm text-emerald-600">{{ selectedProject.raisedBudget }}</span>
+              <span class="block text-xs font-medium text-slate-500 mb-1">المستفيدون المقدرون</span>
+              <span class="font-bold text-sm text-[#046bd2]">{{ selectedProject.beneficiaries }}</span>
             </div>
             <div>
-              <span class="block text-xs text-slate-400">المستفيدون</span>
-              <span class="font-bold text-sm text-slate-800">{{ selectedProject.beneficiaries }}</span>
+              <span class="block text-xs font-medium text-slate-500 mb-1">الموقع الميداني</span>
+              <span class="font-bold text-sm text-slate-700">{{ selectedProject.location }}</span>
             </div>
           </div>
 

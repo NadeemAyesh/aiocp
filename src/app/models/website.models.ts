@@ -36,7 +36,7 @@ export interface ProjectItem {
   description: string;
   status: 'ongoing' | 'completed' | 'future' | 'needs';
   statusLabel: string;
-  sector: 'shelter' | 'water' | 'health' | 'education' | 'infrastructure';
+  sector: 'shelter' | 'health' | 'education' | 'food' | 'water' | 'debris' | 'damage-assessment' | string;
   sectorLabel: string;
   progressPercentage: number;
   targetedBudget: string;

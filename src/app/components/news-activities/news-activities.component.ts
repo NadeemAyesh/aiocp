@@ -31,6 +31,27 @@ interface ActivityItem {
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
+        <!-- Breaking News Ticker Strip (تحديثات عاجلة - مخفي مؤقتاً) -->
+        <div *ngIf="showBreakingNews()" class="mb-12 bg-white/[0.04] hover:bg-white/[0.07] backdrop-blur-md border border-white/10 rounded-2xl p-2.5 sm:p-3 shadow-2xl flex items-center gap-3 sm:gap-4 text-xs overflow-hidden transition-colors duration-200">
+          <div class="flex-shrink-0 flex items-center gap-2 font-black text-[#f4921e] bg-[#f4921e]/15 px-3 py-1.5 rounded-xl border border-[#f4921e]/30 shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-[#f4921e] animate-ping"></span>
+            <span class="whitespace-nowrap">تحديثات عاجلة:</span>
+          </div>
+          <div class="overflow-hidden relative flex-1">
+            <div class="whitespace-nowrap flex items-center gap-8 animate-ticker text-slate-300 font-medium">
+              <span *ngFor="let item of breakingNews" class="inline-flex items-center gap-2.5 hover:text-white transition">
+                <span class="text-[#f4921e]">✦</span>
+                <span>{{ item }}</span>
+              </span>
+              <!-- Continuous looping repeat -->
+              <span *ngFor="let item of breakingNews" class="inline-flex items-center gap-2.5 hover:text-white transition" aria-hidden="true">
+                <span class="text-[#f4921e]">✦</span>
+                <span>{{ item }}</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
         <!-- Section Header -->
         <div class="mb-10 space-y-3">
           <!-- Top Pill Badge -->
@@ -213,12 +234,71 @@ interface ActivityItem {
 
         </div>
 
+        <!-- Executive Bottom Archive & Impact Stats Strip (From User Reference) -->
+        <div class="mt-12 bg-[#091b2e]/90 backdrop-blur-md rounded-2xl border border-white/10 p-5 sm:p-6 lg:px-8 lg:py-5 shadow-2xl flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          
+          <!-- Right Stats Group (In RTL) -->
+          <div class="flex flex-wrap items-center gap-6 sm:gap-10 lg:gap-14">
+            
+            <!-- Stat 1: Meetings 2025 -->
+            <div class="space-y-1">
+              <span class="block text-[11px] sm:text-xs text-slate-400 font-medium">اجتماعات وملتقيات 2025</span>
+              <span class="block text-xl sm:text-2xl font-black text-[#f4921e] tracking-tight font-mono">+18 لقاءً دولياً</span>
+            </div>
+
+            <!-- Stat 2: MoUs & Partnerships -->
+            <div class="space-y-1">
+              <span class="block text-[11px] sm:text-xs text-slate-400 font-medium">مذكرات تفاهم وشراكة</span>
+              <span class="block text-xl sm:text-2xl font-black text-[#38bdf8] tracking-tight font-mono">14 اتفاقية</span>
+            </div>
+
+            <!-- Stat 3: Humanitarian Clusters -->
+            <div class="space-y-1">
+              <span class="block text-[11px] sm:text-xs text-slate-400 font-medium">تمثيل في التكتلات الإنسانية</span>
+              <span class="block text-xl sm:text-2xl font-black text-emerald-400 tracking-tight font-mono">4 كتل أممية</span>
+            </div>
+
+          </div>
+
+          <!-- Left CTA Button (In RTL) -->
+          <div class="shrink-0">
+            <button 
+              (click)="onViewAllArchive()"
+              class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#f4921e] hover:bg-[#ff9e2e] active:bg-[#e08112] text-[#00172e] font-black text-xs sm:text-sm transition-all duration-200 shadow-[0_4px_24px_rgba(244,146,30,0.35)] hover:shadow-[0_6px_30px_rgba(244,146,30,0.5)] hover:scale-[1.02] active:scale-98 flex items-center justify-center gap-2.5 cursor-pointer"
+            >
+              <svg class="w-4 h-4 text-[#00172e] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+              <span>استعراض أرشيف الأنشطة والمؤتمرات بالكامل</span>
+              <span class="text-base font-bold transform -translate-x-0.5">←</span>
+            </button>
+          </div>
+
+        </div>
+
       </div>
     </section>
-  `
+  `,
+  styles: [`
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(50%); }
+    }
+    .animate-ticker {
+      display: inline-flex;
+      animation: ticker 35s linear infinite;
+    }
+    .animate-ticker:hover {
+      animation-play-state: paused;
+    }
+  `]
 })
 export class NewsActivitiesComponent {
   @Output() articleSelected = new EventEmitter<NewsArticle>();
+
+  private dataService = inject(WebsiteDataService);
+  breakingNews: string[] = this.dataService.breakingNews;
+  showBreakingNews = signal<boolean>(false);
 
   activeFilter = signal<'all' | 'partnerships' | 'board' | 'conferences'>('all');
 
@@ -297,6 +377,23 @@ export class NewsActivitiesComponent {
         { value: '250,000', label: 'نسمة مستفيدة', sub: 'مياه صالحة', color: 'text-[#38bdf8]' },
         { value: '$850K', label: 'قيمة المشروع', sub: 'تشغيل مباشر', color: 'text-emerald-400' }
       ]
+    },
+    {
+      id: 'act-4',
+      badge: 'تنسيق وشراكات',
+      badgeType: 'partnerships',
+      badgeColor: 'text-purple-400',
+      timeAgo: 'قبل أسبوع',
+      title: 'إسهامات الهيئة في دعم الإعمار وتوقيع بروتوكولات مائية وخدمية جديدة',
+      excerpt: 'توقيع اتفاقيات تشغيل آبار المياه بالطاقة الشمسية وشبكات التوزيع وتوفير آليات ترحيل النفايات الصلبة شمال قطاع غزة.',
+      image: 'images/water-projects.jpg',
+      location: 'محافظة الشمال',
+      projectsCount: '12 بئراً مركزياً',
+      metrics: [
+        { value: '12 بئراً', label: 'آبار مياه', sub: 'طاقة شمسية', color: 'text-[#f4921e]' },
+        { value: '250,000', label: 'نسمة مستفيدة', sub: 'مياه صالحة', color: 'text-[#38bdf8]' },
+        { value: '$850K', label: 'قيمة المشروع', sub: 'تشغيل مباشر', color: 'text-emerald-400' }
+      ]
     }
   ];
 
@@ -335,5 +432,12 @@ export class NewsActivitiesComponent {
       readTime: '3 دقائق',
       author: 'إعلام الإعمار'
     });
+  }
+
+  @Output() viewAllArchive = new EventEmitter<void>();
+
+  onViewAllArchive() {
+    this.viewAllArchive.emit();
+    this.openArticleDetails(this.featuredItem);
   }
 }
