@@ -1,0 +1,351 @@
+import { Injectable } from '@angular/core';
+import { HeroSlide, NewsArticle, ProjectItem, MediaItem, StatItem, Partner } from '../models/website.models';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class WebsiteDataService {
+  readonly heroSlides: HeroSlide[] = [
+    {
+      id: 'slide-1',
+      badge: 'تغطية ميدانية عاجلة',
+      category: 'أنشطة الهيئة',
+      title: 'بالتعاون مع وزارة الأشغال: إزالة الركام وفتح الشوارع الرئيسية في مدينة غزة',
+      excerpt: 'شرعت الهيئة العربية الدولية للإعمار في فلسطين بالتعاون مع وزارة الأشغال العامة والإسكان في تنفيذ مرحلة متقدمة لفتح المحاور الحيوية وإزالة آلاف الأطنان من الركام تمهيداً لعودة الحياة وإغاثة الأهالي.',
+      image: 'images/rubble-removal.jpg',
+      date: '14 أكتوبر 2025',
+      readTime: '3 دقائق',
+      projectTarget: '$2.5M مستهدف',
+      actionLink: '#activities'
+    },
+    {
+      id: 'slide-2',
+      badge: 'شراكات دولية استراتيجية',
+      category: 'أخبار الهيئة',
+      title: 'اتفاقيات شراكة استراتيجية بقيمة 29 مليون دولار لتنفيذ حزمة مشاريع حيوية في غزة',
+      excerpt: 'أقرت الهيئة العربية الدولية للإعمار خطة طوارئ إنسانية وهندسية شاملة بالتعاون مع شركائها الإقليميين والدوليين لإعادة تأهيل البنية التحتية والمياه والإيواء والمراكز الصحية.',
+      image: 'images/board-meeting.jpg',
+      date: '28 أغسطس 2025',
+      readTime: '4 دقائق',
+      projectTarget: '$29M اتفاقيات',
+      actionLink: '#projects'
+    },
+    {
+      id: 'slide-3',
+      badge: 'إيواء طارئ وإغاثة',
+      category: 'المشاريع الجارية',
+      title: 'توفير 100 خيمة لإقامة مخيم إيواء عاجل ومرافق خدمية في مدينة جباليا',
+      excerpt: 'ضمن التدخلات السريعة لحماية الأسر المتضررة والنازحة، جهزت طواقم الهيئة مخيماً نموذجياً متكاملاً يتضمن وحدات صحية وخزانات مياه صالحة للشرب وأنظمة طاقة شمسية.',
+      image: 'images/destruction-gaza.jpg',
+      date: '15 يوليو 2025',
+      readTime: '2 دقيقة',
+      projectTarget: '5,000 مستفيد',
+      actionLink: '#projects'
+    },
+    {
+      id: 'slide-4',
+      badge: 'مشاريع المياه والإصحاح',
+      category: 'بنية تحتية',
+      title: 'تأهيل آبار المياه وشبكات التوزيع وإدارة النفايات الصلبة شمال قطاع غزة',
+      excerpt: 'تنفيذ أعمال تأهيل شاملة لـ 12 بئراً مركزياً بالتعاون مع مصلحة بلديات الساحل وتوفير آليات ترحيل النفايات للحد من المخاطر البيئية والصحية على السكان.',
+      image: 'images/water-projects.jpg',
+      date: '20 سبتمبر 2024',
+      readTime: '3 دقائق',
+      projectTarget: '250,000 نسمة',
+      actionLink: '#projects'
+    }
+  ];
+
+  readonly breakingNews: string[] = [
+    'الهيئة تشرع في إزالة الركام وفتح الشوارع الرئيسية في أحياء الرمال وتل الهوى بمدينة غزة',
+    'مجلس إدارة الهيئة يقر خطة التدخل الطارئ لعام 2025-2026 بقيمة إجمالية تجاوزت 29 مليون دولار',
+    'إطلاق أعمال حصر الأضرار الفنية والهندسية للمباني السكنية المتضررة بالتعاون مع نقابة المهندسين',
+    'الهيئة تعزز شراكاتها مع منظمات الأمم المتحدة والكتل الإنسانية (WASH, Shelter, Health, Food)'
+  ];
+
+  readonly newsArticles: NewsArticle[] = [
+    {
+      id: 'news-1',
+      title: 'الهيئة العربية الدولية للإعمار تشرع في إزالة الركام وفتح الشوارع الرئيسية في مدينة غزة',
+      excerpt: 'في إطار المرحلة العاجلة لتسهيل حركة سيارات الإسعاف وفرق الإغاثة، بدأت الآليات الهندسية الثقيلة التابعة للهيئة فتح الشوارع المغلقة ورفع آلاف الأمتار المكعبة من الركام.',
+      category: 'activities',
+      categoryLabel: 'أنشطة ميدانية',
+      image: 'images/rubble-removal.jpg',
+      date: '14 أكتوبر 2025',
+      readTime: '3 دقائق',
+      featured: true,
+      author: 'إعلام الإعمار'
+    },
+    {
+      id: 'news-2',
+      title: 'الهيئة تعقد اجتماع مجلس إدارتها وتقر خطة طوارئ إنسانية وهندسية في قطاع غزة',
+      excerpt: 'انطلاق أعمال مجلس إدارة الهيئة في إسطنبول بمشاركة كوكبة من المهندسين ورجال الأعمال، واعتماد مشاريع بقيمة 29 مليون دولار.',
+      category: 'news',
+      categoryLabel: 'أخبار الهيئة',
+      image: 'images/board-meeting.jpg',
+      date: '22 أغسطس 2025',
+      readTime: '4 دقائق',
+      author: 'الأمانة العامة'
+    },
+    {
+      id: 'news-3',
+      title: 'جمع وترحيل النفايات الصلبة في مدينة غزة والمناطق الشمالية لتفادي الكارثة الصحية',
+      excerpt: 'مواصلة التدخل البيئي العاجل لتشغيل آليات الجمع والترحيل إلى المكبات المخصصة وسط ظروف ميدانية معقدة ونقص حاد في الوقود.',
+      category: 'activities',
+      categoryLabel: 'أنشطة ميدانية',
+      image: 'images/gaza-partnership.jpg',
+      date: '10 سبتمبر 2025',
+      readTime: '2 دقيقة',
+      author: 'فريق العمليات الميدانية'
+    },
+    {
+      id: 'news-4',
+      title: 'بيان صحافي: الهيئة تؤكد جاهزيتها الفنية لإطلاق المرحلة الشاملة لإعادة إعمار غزة',
+      excerpt: 'أكد رئيس مجلس إدارة الهيئة جاهزية الكوادر الهندسية والخطط التنفيذية المتكاملة للبدء الفوري في الترميم وإعادة البناء فور استقرار الأوضاع.',
+      category: 'statements',
+      categoryLabel: 'بيانات صحفية',
+      image: 'images/destruction-gaza.jpg',
+      date: '02 أكتوبر 2025',
+      readTime: '3 دقائق',
+      author: 'المكتب الإعلامي'
+    },
+    {
+      id: 'news-5',
+      title: 'إطلاق حملة «همم الإعمار»: تحويل الألم إلى أمل والركام إلى عمران ينبض بالحياة',
+      excerpt: 'حملة شعبية ومؤسسية واسعة النطاق لجمع التبرعات وحشد الطاقات العربية والدولية لإسناد صمود العائلات وتوفير مأوى كريم للمتضررين.',
+      category: 'campaigns',
+      categoryLabel: 'حملات الإعمار',
+      image: 'images/water-projects.jpg',
+      date: '18 يوليو 2025',
+      readTime: '5 دقائق',
+      author: 'لجنة الحملات'
+    },
+    {
+      id: 'news-6',
+      title: 'الهيئة تباشر حصر الأضرار وتوثيق الدمار الشامل في قطاع غزة وفق معايير دولية',
+      excerpt: 'إطلاق منصة رقمية هندسية لتوثيق الأضرار الإنشائية للمباني والمنشآت وتجهيز المخططات الفنية التفصيلية لكل منطقة.',
+      category: 'news',
+      categoryLabel: 'أخبار الهيئة',
+      image: 'images/rubble-removal.jpg',
+      date: '05 يونيو 2025',
+      readTime: '4 دقائق',
+      author: 'الدائرة الهندسية'
+    }
+  ];
+
+  readonly projects: ProjectItem[] = [
+    {
+      id: 'proj-1',
+      title: 'مشروع إزالة الركام وفتح الشوارع والمحاور الحيوية في غزة',
+      description: 'إزالة أكثر من 150,000 طن من الركام المتراكم في الشوارع الرئيسية والفرعية لتسهيل وصول طواقم الإسعاف والدفاع المدني والإغاثة.',
+      status: 'ongoing',
+      statusLabel: 'في طور الإنجاز',
+      sector: 'infrastructure',
+      sectorLabel: 'بنية تحتية',
+      progressPercentage: 68,
+      targetedBudget: '$1,800,000',
+      raisedBudget: '$1,224,000',
+      beneficiaries: '350,000 مواطن',
+      location: 'مدينة غزة والشمال',
+      image: 'images/rubble-removal.jpg'
+    },
+    {
+      id: 'proj-2',
+      title: 'مشروع مخيمات الإيواء العاجل والوحدات السكنية المؤقتة في جباليا',
+      description: 'توفير وتجهيز وحدات إيواء عازلة للحرارة والأمطار مزودة بكافة الخدمات الأساسية من مياه وكهرباء شمسية ومرافق صحية.',
+      status: 'ongoing',
+      statusLabel: 'في طور الإنجاز',
+      sector: 'shelter',
+      sectorLabel: 'سكن وإيواء',
+      progressPercentage: 82,
+      targetedBudget: '$950,000',
+      raisedBudget: '$779,000',
+      beneficiaries: '12,500 فرد',
+      location: 'محافظة شمال غزة',
+      image: 'images/destruction-gaza.jpg'
+    },
+    {
+      id: 'proj-3',
+      title: 'تأهيل آبار ومحطات تحلية المياه وشبكات التغذية العاجلة',
+      description: 'إصلاح وتشغيل الآبار المتضررة وتزويدها بالطاقة الشمسية ومولدات الديزل مع توزيع مياه الشرب النقية يومياً عبر الصهاريج.',
+      status: 'completed',
+      statusLabel: 'المنجزة',
+      sector: 'water',
+      sectorLabel: 'مياه وإصحاح',
+      progressPercentage: 100,
+      targetedBudget: '$650,000',
+      raisedBudget: '$650,000',
+      beneficiaries: '180,000 نسمة',
+      location: 'مدينة غزة وخانيونس',
+      image: 'images/water-projects.jpg'
+    },
+    {
+      id: 'proj-4',
+      title: 'ترميم وتجهيز النقاط الطبية والمستشفيات الميدانية',
+      description: 'إعادة تأهيل الأقسام الإسعافية وتزويدها بالمستلزمات الطبية وأنظمة الطاقة البديلة لضمان استمرار تقديم الرعاية الصحية للجرحى والمرضى.',
+      status: 'completed',
+      statusLabel: 'المنجزة',
+      sector: 'health',
+      sectorLabel: 'الصحة',
+      progressPercentage: 100,
+      targetedBudget: '$1,200,000',
+      raisedBudget: '$1,200,000',
+      beneficiaries: '75,000 مريض',
+      location: 'دير البلح والوسطى',
+      image: 'images/board-meeting.jpg'
+    },
+    {
+      id: 'proj-5',
+      title: 'المشروع الوطني لإعادة بناء الأحياء السكنية المستدامة',
+      description: 'مخطط هندسي مستقبلي لإعادة تشييد الوحدات السكنية المدمرة كلياً بنظام البناء البيئي الحديث والمقاوم للزلازل والحرائق.',
+      status: 'future',
+      statusLabel: 'المستقبلية',
+      sector: 'shelter',
+      sectorLabel: 'سكن وإيواء',
+      progressPercentage: 25,
+      targetedBudget: '$15,000,000',
+      raisedBudget: '$3,750,000',
+      beneficiaries: '45,000 أسرة',
+      location: 'محافظات قطاع غزة',
+      image: 'images/gaza-partnership.jpg'
+    },
+    {
+      id: 'proj-6',
+      title: 'نداء الاستجابة العاجلة: توفير وقود محطات المياه ومعدات الإعمار',
+      description: 'احتياج طارئ لتأمين الوقود اللازم لتشغيل مضخات الصرف الصحي وتزويد الجرافات والآليات الثقيلة لمواصلة إنقاذ الأرواح.',
+      status: 'needs',
+      statusLabel: 'الحاجة إلى الإعمار',
+      sector: 'infrastructure',
+      sectorLabel: 'بنية تحتية',
+      progressPercentage: 35,
+      targetedBudget: '$3,000,000',
+      raisedBudget: '$1,050,000',
+      beneficiaries: 'نصف مليون نسمة',
+      location: 'كامل قطاع غزة',
+      image: 'images/destruction-gaza.jpg'
+    }
+  ];
+
+  readonly mediaItems: MediaItem[] = [
+    {
+      id: 'med-1',
+      type: 'video',
+      title: 'تقرير مرئي: جهود الهيئة في فتح الشوارع وإزالة الركام في غزة',
+      date: '12 أكتوبر 2025',
+      image: 'images/rubble-removal.jpg',
+      videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      duration: '04:15 دقيقة',
+      speaker: 'م. حاتم حسونة - مدير العمليات'
+    },
+    {
+      id: 'med-2',
+      type: 'video',
+      title: 'كلمة رئيس مجلس الإدارة في المؤتمر الدولي للإعمار - إسطنبول',
+      date: '25 أغسطس 2025',
+      image: 'images/board-meeting.jpg',
+      videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      duration: '18:40 دقيقة',
+      speaker: 'م. زهير العمري - رئيس مجلس الإدارة'
+    },
+    {
+      id: 'med-3',
+      type: 'photo',
+      title: 'معرض صور: أعمال تركيب الخيام المجهزة للعائلات في جباليا',
+      date: '18 يوليو 2025',
+      image: 'images/destruction-gaza.jpg'
+    },
+    {
+      id: 'med-4',
+      type: 'photo',
+      title: 'معرض صور: تشغيل بئر مياه بالطاقة الشمسية في خان يونس',
+      date: '22 سبتمبر 2024',
+      image: 'images/water-projects.jpg'
+    },
+    {
+      id: 'med-5',
+      type: 'report',
+      title: 'التقرير الهندسي الشامل لحصر أضرار البنية التحتية والقطاع السكني',
+      date: 'سبتمبر 2025',
+      image: 'images/gaza-partnership.jpg',
+      fileSize: '14.8 MB (PDF)',
+      downloadUrl: '#'
+    },
+    {
+      id: 'med-6',
+      type: 'report',
+      title: 'دليل المعايير الفنية للمخيمات النموذجية والوحدات المؤقتة',
+      date: 'أغسطس 2025',
+      image: 'images/rubble-removal.jpg',
+      fileSize: '8.4 MB (PDF)',
+      downloadUrl: '#'
+    },
+    {
+      id: 'med-7',
+      type: 'interview',
+      title: 'حوار خاص: غزة لا تنتظر.. خطط الإعمار يجب أن تبدأ فوراً',
+      date: '10 أكتوبر 2025',
+      image: 'images/board-meeting.jpg',
+      speaker: 'د. يوسف المنسي - نائب رئيس الهيئة'
+    }
+  ];
+
+  readonly statistics: StatItem[] = [
+    {
+      value: '+29M$',
+      label: 'حجم مذكرات الشراكة',
+      sublabel: 'تمويل مباشر لمشاريع الطوارئ وإعادة التأهيل',
+      icon: 'dollar'
+    },
+    {
+      value: '+1,500,000',
+      label: 'مستفيد ومستفيدة',
+      sublabel: 'من خدمات الإيواء والمياه والرعاية الصحية',
+      icon: 'users'
+    },
+    {
+      value: '+450',
+      label: 'مشروع منجز ونوعي',
+      sublabel: 'في البنية التحتية والإسكان والتعليم والمياه',
+      icon: 'building'
+    },
+    {
+      value: '+15',
+      label: 'عاماً من الريادة',
+      sublabel: 'خبرة متخصصة ومصداقية هندسية رفيعة',
+      icon: 'shield'
+    }
+  ];
+
+  readonly strategicPillars = [
+    {
+      title: 'رؤيتنا',
+      subtitle: 'العمران كحق إنساني',
+      description: 'أن نكون المنظمة العربية والدولية الرائدة والأكثر موثوقية في هندسة وإعمار فلسطين، وتحويل الألم والدمار إلى عمران حديث ينبض بالأمل والاستدامة للأجيال القادمة.',
+      icon: 'eye',
+      accent: 'from-blue-600 to-sky-700'
+    },
+    {
+      title: 'رسالتنا',
+      subtitle: 'المهنية والشفافية في التنفيذ',
+      description: 'حشد الطاقات الهندسية والمالية والإنسانية على مستوى العالم، لتنفيذ مشاريع إعمار وتنمية متكاملة في فلسطين وفق أرفع المعايير الهندسية الدولية وبأعلى درجات الشفافية والمسؤولية.',
+      icon: 'flag',
+      accent: 'from-amber-500 to-orange-600'
+    },
+    {
+      title: 'أهدافنا الاستراتيجية',
+      subtitle: 'أولويات عمل واضحة',
+      description: 'إعادة تأهيل وإعمار ما دمره الاحتلال في قطاعات الإسكان والبنية التحتية والمياه، تمكين الكفاءات والشركات الهندسية المحلية، وبناء شراكات فاعلة مع وكالات الأمم المتحدة.',
+      icon: 'target',
+      accent: 'from-emerald-600 to-teal-700'
+    }
+  ];
+
+  readonly partners: Partner[] = [
+    { name: 'مجموعة المأوى العالمية - Shelter Cluster', logo: 'images/memberships/shelter-cluster.webp', category: 'الأمم المتحدة' },
+    { name: 'مجموعة المياه والإصحاح - WASH Cluster', logo: 'images/memberships/wash-cluster.webp', category: 'الأمم المتحدة' },
+    { name: 'مجموعة الصحة العالمية - Health Cluster', logo: 'images/memberships/health-cluster.webp', category: 'الأمم المتحدة' },
+    { name: 'مجموعة الأمن الغذائي - Food Security Cluster', logo: 'images/memberships/food-cluster.webp', category: 'الأمم المتحدة' },
+    { name: 'اتحاد المهندسين العرب', logo: 'images/logo-palimar.png', category: 'نقابات مهنية' },
+    { name: 'وزارة الأشغال العامة والإسكان الفلسطينية', logo: 'images/logo-aiocp.webp', category: 'مؤسسات حكومية' }
+  ];
+}
