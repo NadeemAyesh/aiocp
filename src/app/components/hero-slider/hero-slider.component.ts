@@ -102,44 +102,6 @@ import { HeroSlide } from '../../models/website.models';
               </button>
             </div>
 
-            <!-- Slide Nav Buttons & Counter -->
-            <div class="flex items-center gap-4 pt-3">
-              <div class="flex items-center gap-1.5">
-                <button 
-                  (click)="prevSlide()" 
-                  class="w-9 h-9 rounded-xl bg-white dark:bg-[#0b1f36] border border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200 flex items-center justify-center transition shadow-sm cursor-pointer"
-                  title="السابق"
-                >
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                </button>
-                <button 
-                  (click)="nextSlide()" 
-                  class="w-9 h-9 rounded-xl bg-white dark:bg-[#0b1f36] border border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200 flex items-center justify-center transition shadow-sm cursor-pointer"
-                  title="التالي"
-                >
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                </button>
-              </div>
-
-              <!-- Slide Indicators -->
-              <div class="flex items-center gap-1.5">
-                <button 
-                  *ngFor="let s of slides; let i = index"
-                  (click)="goToSlide(i)"
-                  class="h-2 rounded-full transition-all duration-300"
-                  [class.w-8]="currentSlide() === i"
-                  [class.bg-[#f4921e]]="currentSlide() === i"
-                  [class.w-2]="currentSlide() !== i"
-                  [class.bg-slate-300]="currentSlide() !== i"
-                  [class.dark:bg-slate-600]="currentSlide() !== i"
-                  [title]="s.title"
-                ></button>
-              </div>
-
-              <span class="text-xs font-mono font-bold text-slate-400">
-                0{{ currentSlide() + 1 }} / 0{{ slides.length }}
-              </span>
-            </div>
 
           </div>
 
