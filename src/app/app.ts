@@ -1,5 +1,5 @@
-import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, signal, OnInit, inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { HeroSliderComponent } from './components/hero-slider/hero-slider.component';
 import { NewsActivitiesComponent } from './components/news-activities/news-activities.component';
@@ -29,7 +29,9 @@ import { ProjectItem, MediaItem, NewsArticle } from './models/website.models';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
+export class App implements OnInit {
+  private platformId = inject(PLATFORM_ID);
+
   // Modal states
   selectedProject = signal<ProjectItem | null>(null);
   selectedVideo = signal<MediaItem | null>(null);
@@ -81,5 +83,24 @@ export class App {
     this.showShareModal.set(false);
     this.showSearchModal.set(false);
     this.showDonateModal.set(false);
+  }
+
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.dismissPreloader();
+    }
+  }
+
+  private dismissPreloader(): void {
+    // Elegant fade out after initial mount
+    setTimeout(() => {
+      const preloader = document.getElementById('app-preloader');
+      if (preloader) {
+        preloader.classList.add('app-preloader--hidden');
+        setTimeout(() => {
+          preloader.remove();
+        }, 650);
+      }
+    }, 750);
   }
 }

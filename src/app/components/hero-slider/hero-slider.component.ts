@@ -22,10 +22,10 @@ import { HeroSlide } from '../../models/website.models';
       <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <!-- Top Split Grid: Story Content on Right & Framed Image on Left (in RTL) -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center mb-12">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-12">
           
-          <!-- Content Column (Span 7 in RTL) -->
-          <div class="lg:col-span-7 space-y-6">
+          <!-- Content Column (Span 6 in RTL) -->
+          <div class="lg:col-span-6 space-y-6">
             
             <!-- Category & Live Badge -->
             <div class="flex flex-wrap items-center gap-3">
@@ -144,34 +144,37 @@ import { HeroSlide } from '../../models/website.models';
           </div>
 
           <!-- Visual Showcase Column (Framed Photo Card on Left in RTL) -->
-          <div class="lg:col-span-5">
+          <div class="lg:col-span-6">
             <div class="relative">
               
-              <!-- Framed Active News Photo with Glow & Shadows -->
-              <div class="relative rounded-3xl overflow-hidden border-4 border-white dark:border-white/10 shadow-2xl bg-white dark:bg-[#0b1f36] aspect-[4/3] sm:aspect-[16/11]">
+              <!-- Subtle Ambient Glow behind the photo frame -->
+              <div class="absolute -inset-3 bg-gradient-to-tr from-[#004380]/15 via-sky-500/10 to-[#f4921e]/15 rounded-[2.5rem] blur-2xl opacity-80 pointer-events-none -z-10"></div>
+
+              <!-- Framed Active News Photo with generous size, glow & crisp borders -->
+              <div class="relative rounded-3xl sm:rounded-[2rem] overflow-hidden border-4 sm:border-[5px] border-white dark:border-white/15 shadow-[0_20px_50px_-12px_rgba(0,40,77,0.25)] dark:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.8)] bg-white dark:bg-[#0b1f36] h-[340px] sm:h-[420px] lg:h-[475px] xl:h-[520px] w-full group">
                 <img 
                   [src]="activeSlide.image" 
                   [alt]="activeSlide.title" 
-                  class="w-full h-full object-cover transition-all duration-700 ease-out"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ease-out"
                 />
                 
                 <!-- Bottom Gradient Tag inside frame -->
-                <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-[#00172e]/90 via-[#00172e]/25 to-transparent pointer-events-none"></div>
 
                 <!-- Top-Right Category Pill -->
-                <span class="absolute top-4 right-4 px-3.5 py-1.5 rounded-xl text-xs font-black bg-[#00284d]/90 text-white backdrop-blur-md border border-white/20 shadow">
+                <span class="absolute top-4 right-4 px-3.5 py-1.5 rounded-xl text-xs font-black bg-[#00284d]/90 text-white backdrop-blur-md border border-white/20 shadow-lg">
                   {{ activeSlide.category }}
                 </span>
 
                 <!-- Top-Left Verified Documentation Pill -->
-                <span class="absolute top-4 left-4 px-3 py-1.5 rounded-xl text-[11px] font-bold bg-black/60 text-white/95 backdrop-blur-md border border-white/20 shadow inline-flex items-center gap-1.5">
+                <span class="absolute top-4 left-4 px-3.5 py-1.5 rounded-xl text-[11px] sm:text-xs font-bold bg-black/60 text-white/95 backdrop-blur-md border border-white/20 shadow-lg inline-flex items-center gap-1.5">
                   <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                   <span>توثيق ميداني معتمد</span>
                 </span>
 
                 <!-- Bottom Photo Caption (Full width, clean and unobstructed) -->
-                <div class="absolute bottom-4 right-4 left-4 text-white">
-                  <p class="text-xs sm:text-sm font-bold text-white/95 line-clamp-2 leading-relaxed drop-shadow-md">
+                <div class="absolute bottom-5 right-5 left-5 text-white pointer-events-none">
+                  <p class="text-sm sm:text-base font-bold text-white/95 line-clamp-2 leading-relaxed drop-shadow-md">
                     {{ activeSlide.title }}
                   </p>
                 </div>

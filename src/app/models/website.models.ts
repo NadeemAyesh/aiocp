@@ -60,9 +60,15 @@ export interface MediaItem {
 }
 
 export interface Partner {
+  id: string;
   name: string;
+  code: string;
   logo: string;
   category: string;
+  categoryKey: 'un' | 'gov' | 'eng';
+  description: string;
+  role: string;
+  iconType: string;
 }
 
 export interface StatItem {

@@ -371,11 +371,71 @@ export class WebsiteDataService {
   ];
 
   readonly partners: Partner[] = [
-    { name: 'مجموعة المأوى العالمية - Shelter Cluster', logo: 'images/memberships/shelter-cluster.webp', category: 'الأمم المتحدة' },
-    { name: 'مجموعة المياه والإصحاح - WASH Cluster', logo: 'images/memberships/wash-cluster.webp', category: 'الأمم المتحدة' },
-    { name: 'مجموعة الصحة العالمية - Health Cluster', logo: 'images/memberships/health-cluster.webp', category: 'الأمم المتحدة' },
-    { name: 'مجموعة الأمن الغذائي - Food Security Cluster', logo: 'images/memberships/food-cluster.webp', category: 'الأمم المتحدة' },
-    { name: 'اتحاد المهندسين العرب', logo: 'images/logo-palimar.png', category: 'نقابات مهنية' },
-    { name: 'وزارة الأشغال العامة والإسكان الفلسطينية', logo: 'images/logo-aiocp.webp', category: 'مؤسسات حكومية' }
+    { 
+      id: 'shelter',
+      name: 'مجموعة المأوى العالمية',
+      code: 'Global Shelter Cluster',
+      logo: 'images/memberships/shelter-cluster.webp',
+      category: 'الأمم المتحدة',
+      categoryKey: 'un',
+      description: 'تنسيق وتوفير المأوى الطارئ، الخيام المقاومة للعوامل الجوية، وتأهيل المساكن المتضررة جزئياً لحماية الأسر النازحة.',
+      role: 'عضوية وتنسيق عملياتي',
+      iconType: 'home'
+    },
+    { 
+      id: 'wash',
+      name: 'مجموعة المياه والإصحاح البيئي',
+      code: 'Global WASH Cluster',
+      logo: 'images/memberships/wash-cluster.webp',
+      category: 'الأمم المتحدة',
+      categoryKey: 'un',
+      description: 'تشغيل وتأهيل آبار المياه، محطات التحلية، شبكات الصرف الصحي، وإيصال مياه الشرب النقية للسكان.',
+      role: 'عضوية وتنسيق عملياتي',
+      iconType: 'water'
+    },
+    { 
+      id: 'health',
+      name: 'مجموعة الصحة العالمية',
+      code: 'Global Health Cluster',
+      logo: 'images/memberships/health-cluster.webp',
+      category: 'الأمم المتحدة',
+      categoryKey: 'un',
+      description: 'دعم المرافق الصحية والمستشفيات، توفير الطاقة البديلة، وتجهيز النقاط الطبية الميدانية العاجلة.',
+      role: 'عضوية وتنسيق عملياتي',
+      iconType: 'health'
+    },
+    { 
+      id: 'food',
+      name: 'مجموعة الأمن الغذائي والزراعة',
+      code: 'Global Food Security Cluster',
+      logo: 'images/memberships/food-cluster.webp',
+      category: 'الأمم المتحدة',
+      categoryKey: 'un',
+      description: 'تأمين السلال الغذائية الطارئة، تشغيل المطابخ المركزية والمخابز، ودعم سلاسل الإمداد الإغاثي.',
+      role: 'عضوية وتنسيق عملياتي',
+      iconType: 'food'
+    },
+    { 
+      id: 'ministry',
+      name: 'وزارة الأشغال العامة والإسكان',
+      code: 'Ministry of Public Works & Housing',
+      logo: 'images/logo-aiocp.webp',
+      category: 'مؤسسات حكومية',
+      categoryKey: 'gov',
+      description: 'الشريك الحكومي الميداني لحصر وتوثيق الأضرار الإنشائية، فتح الطرق الرئيسية، وإزالة آلاف الأطنان من الركام.',
+      role: 'شراكة وتنسيق ميداني رسمي',
+      iconType: 'gov'
+    },
+    { 
+      id: 'engineers',
+      name: 'اتحاد المهندسين العرب',
+      code: 'Federation of Arab Engineers',
+      logo: 'images/logo-palimar.png',
+      category: 'نقابات مهنية',
+      categoryKey: 'eng',
+      description: 'المظلة النقابية والهندسية للإشراف الفني، تدقيق مخططات الإعمار، واعتماد المعايير وتأهيل الكوادر الفنية.',
+      role: 'إشراف نقابي وهندسي عربي',
+      iconType: 'engineering'
+    }
   ];
 }
