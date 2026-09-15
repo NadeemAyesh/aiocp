@@ -1,4 +1,4 @@
-import { Component, signal, OnInit, inject, PLATFORM_ID } from '@angular/core';
+import { Component, signal, OnInit, inject, PLATFORM_ID, HostListener } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { HeroSliderComponent } from './components/hero-slider/hero-slider.component';
@@ -41,6 +41,48 @@ export class App implements OnInit {
   showShareModal = signal<boolean>(false);
   showSearchModal = signal<boolean>(false);
   showDonateModal = signal<boolean>(false);
+
+  // FAB & Scroll to Top states
+  showBackToTop = signal<boolean>(false);
+  scrollProgress = signal<number>(0);
+  isFabOpen = signal<boolean>(false);
+
+  @HostListener('window:scroll')
+  onWindowScroll(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    const scrollY = window.scrollY || document.documentElement.scrollTop;
+    this.showBackToTop.set(scrollY > 280);
+
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (docHeight > 0) {
+      const progress = Math.min(100, Math.max(0, Math.round((scrollY / docHeight) * 100)));
+      this.scrollProgress.set(progress);
+    }
+  }
+
+  scrollToTop(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  toggleFab(event?: MouseEvent): void {
+    if (event) {
+      event.stopPropagation();
+    }
+    this.isFabOpen.update(v => !v);
+  }
+
+  closeFab(): void {
+    this.isFabOpen.set(false);
+  }
+
+  @HostListener('document:click')
+  onDocumentClick(): void {
+    if (this.isFabOpen()) {
+      this.isFabOpen.set(false);
+    }
+  }
 
   // Modal handlers
   onProjectDetails(p: ProjectItem) {

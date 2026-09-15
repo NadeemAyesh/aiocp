@@ -1,0 +1,16 @@
+/* FAB Speed Dial Animation & Micro-interactions */
+@keyframes fabPopup {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.94);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-fabPopup {
+  animation: fabPopup 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: bottom right;
+}
