@@ -33,14 +33,14 @@ import { ProjectItem, MediaItem, NewsArticle } from '../../models/website.models
             <span class="px-3 py-1 rounded-full text-xs font-bold bg-[#f4921e] text-[#001f3b] mb-2 inline-block shadow">
               {{ selectedProject.statusLabel }} • {{ selectedProject.sectorLabel }}
             </span>
-            <h3 class="text-xl sm:text-2xl font-extrabold leading-snug">
+            <h3 class="text-lg sm:text-xl font-extrabold leading-snug">
               {{ selectedProject.title }}
             </h3>
           </div>
         </div>
 
         <div class="p-6 sm:p-8 space-y-6">
-          <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed transition-colors">
+          <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed transition-colors">
             {{ selectedProject.description }}
           </p>
 
@@ -184,11 +184,11 @@ import { ProjectItem, MediaItem, NewsArticle } from '../../models/website.models
             <span class="text-[#004380] dark:text-sky-400 font-bold">{{ selectedArticle.author }}</span>
           </div>
 
-          <h3 class="text-xl sm:text-2xl font-extrabold text-[#00284d] dark:text-white leading-snug transition-colors">
+          <h3 class="text-lg sm:text-xl font-extrabold text-[#00284d] dark:text-white leading-snug transition-colors">
             {{ selectedArticle.title }}
           </h3>
 
-          <div class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed space-y-4 transition-colors">
+          <div class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed space-y-3.5 transition-colors">
             <p>{{ selectedArticle.excerpt }}</p>
             <p>
               تواصل الفرق والكوادر الهندسية التابعة للهيئة العربية الدولية للإعمار العمل الميداني الدؤوب بالتنسيق مع الجهات الشريكة ووزارة الأشغال العامة لتقديم الحلول الهندسية العاجلة وتخفيف المعاناة عن المتضررين.
@@ -228,7 +228,7 @@ import { ProjectItem, MediaItem, NewsArticle } from '../../models/website.models
             <div class="w-10 h-10 rounded-full bg-orange-100 dark:bg-[#f4921e]/20 text-[#f4921e] flex items-center justify-center">
               <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M18 16.08a2.9 2.9 0 0 0-1.95.77L8.91 12.7a3.3 3.3 0 0 0 0-1.4l7.05-4.11A2.98 2.98 0 1 0 15 5c0 .24.04.47.09.7L8.04 9.81a3 3 0 1 0 0 4.38l7.12 4.16c-.05.21-.08.43-.08.65a2.92 2.92 0 1 0 2.92-2.92z"/></svg>
             </div>
-            <h3 class="text-lg font-bold text-[#00284d] dark:text-white">مشاركة الموقع</h3>
+            <h3 class="text-base sm:text-lg font-bold text-[#00284d] dark:text-white">مشاركة الموقع</h3>
           </div>
           <button (click)="closeShare()" class="text-slate-400 hover:text-slate-700 dark:hover:text-white">✕</button>
         </div>
@@ -314,7 +314,7 @@ import { ProjectItem, MediaItem, NewsArticle } from '../../models/website.models
               <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
             </div>
             <div>
-              <h3 class="text-xl font-extrabold text-[#00284d] dark:text-white">ساهم في إعمار فلسطين</h3>
+              <h3 class="text-lg font-extrabold text-[#00284d] dark:text-white">ساهم في إعمار فلسطين</h3>
               <p class="text-xs text-slate-500 dark:text-slate-400">مساهمتك تعيد بناء البيوت وترمم الأمل</p>
             </div>
           </div>

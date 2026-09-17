@@ -21,10 +21,10 @@ import { MediaItem } from '../../models/website.models';
             <span class="w-2 h-2 rounded-full bg-[#f4921e]"></span>
             <span>النافذة الإعلامية للهيئة</span>
           </div>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
             المركز الإعلامي والتوثيقي
           </h2>
-          <p class="text-white/70 text-sm sm:text-base leading-relaxed">
+          <p class="text-white/70 text-xs sm:text-sm leading-relaxed">
             توثيق مرئي ومصور لجهود الإعمار، إصدارات هندسية متخصصة، وتقارير دورية تضعكم في صلب الحقيقة والعمل الميداني.
           </p>
         </div>
@@ -91,10 +91,10 @@ import { MediaItem } from '../../models/website.models';
               <span class="px-3 py-1 rounded-full text-xs font-bold bg-blue-500/20 text-blue-300 border border-blue-400/30">
                 فيديو مميز
               </span>
-              <h3 class="text-xl sm:text-2xl font-extrabold text-white leading-snug">
+              <h3 class="text-lg sm:text-xl font-extrabold text-white leading-snug">
                 {{ videoItems[0].title }}
               </h3>
-              <p class="text-white/70 text-sm leading-relaxed">
+              <p class="text-white/70 text-xs sm:text-sm leading-relaxed">
                 مشاهد حية ومباشرة ترصد الآليات الهندسية وفرق العمل الميداني التابعة للهيئة أثناء فتح الشوارع المغلقة وتسهيل مرور قوافل الإغاثة الإنسانية.
               </p>
               <div class="pt-2 flex items-center justify-between text-xs text-white/60">
@@ -129,7 +129,7 @@ import { MediaItem } from '../../models/website.models';
               </div>
               <div class="p-4 space-y-2">
                 <span class="text-[11px] text-white/50">{{ vid.date }}</span>
-                <h4 class="text-sm font-bold text-white group-hover:text-[#f4921e] transition line-clamp-2">
+                <h4 class="text-xs sm:text-[13px] font-bold text-white group-hover:text-[#f4921e] transition line-clamp-2">
                   {{ vid.title }}
                 </h4>
                 <p *ngIf="vid.speaker" class="text-xs text-blue-300">{{ vid.speaker }}</p>
@@ -169,7 +169,7 @@ import { MediaItem } from '../../models/website.models';
               </div>
               <div class="space-y-1">
                 <span class="text-xs font-bold text-[#f4921e]">{{ rep.date }}</span>
-                <h4 class="text-base font-bold text-white leading-snug">{{ rep.title }}</h4>
+                <h4 class="text-xs sm:text-sm font-bold text-white leading-snug">{{ rep.title }}</h4>
               </div>
             </div>
 
@@ -196,11 +196,11 @@ import { MediaItem } from '../../models/website.models';
             <div class="flex items-center gap-3">
               <img [src]="item.image" [alt]="item.title" class="w-14 h-14 rounded-full object-cover border-2 border-[#f4921e]" />
               <div>
-                <h4 class="text-base font-bold text-white">{{ item.speaker }}</h4>
+                <h4 class="text-sm sm:text-base font-bold text-white">{{ item.speaker }}</h4>
                 <span class="text-xs text-white/50">{{ item.date }}</span>
               </div>
             </div>
-            <blockquote class="text-sm sm:text-base text-white/85 leading-relaxed font-normal italic border-r-2 border-[#f4921e] pr-4">
+            <blockquote class="text-xs sm:text-sm text-white/85 leading-relaxed font-normal italic border-r-2 border-[#f4921e] pr-4">
               «{{ item.title }}»
             </blockquote>
           </div>

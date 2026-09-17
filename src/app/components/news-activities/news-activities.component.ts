@@ -61,12 +61,12 @@ interface ActivityItem {
           </div>
 
           <!-- Section Main Headline -->
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-[1.25]">
+          <h2 class="text-2xl sm:text-3xl lg:text-[2.25rem] font-black text-white tracking-tight leading-[1.25]">
             أنشطة وحراك الهيئة الدولي والإغاثي
           </h2>
 
           <!-- Subtitle -->
-          <p class="text-slate-400 text-sm sm:text-base max-w-3xl leading-relaxed font-normal">
+          <p class="text-slate-400 text-xs sm:text-sm max-w-3xl leading-relaxed font-normal">
             الإطار والمؤتمرات الدولية، اجتماعات مجلس الإدارة، والتحالفات الاستراتيجية لتسريع تنفيذ التدخلات الإعمارية والإنسانية في فلسطين.
           </p>
         </div>
@@ -138,12 +138,12 @@ interface ActivityItem {
             </div>
 
             <!-- Headline & Excerpt -->
-            <div class="space-y-3">
-              <h3 class="text-xl sm:text-2xl lg:text-3xl font-black text-white leading-snug hover:text-[#38bdf8] transition-colors cursor-pointer" (click)="openArticleDetails(featuredItem)">
+            <div class="space-y-2.5">
+              <h3 class="text-lg sm:text-xl lg:text-2xl font-black text-white leading-snug hover:text-[#38bdf8] transition-colors cursor-pointer" (click)="openArticleDetails(featuredItem)">
                 {{ featuredItem.title }}
               </h3>
 
-              <p class="text-slate-300 text-xs sm:text-sm leading-relaxed font-normal">
+              <p class="text-slate-300 text-xs sm:text-[13px] leading-relaxed font-normal">
                 {{ featuredItem.excerpt }}
               </p>
             </div>
@@ -152,10 +152,10 @@ interface ActivityItem {
             <div class="grid grid-cols-3 gap-3 pt-1">
               <div 
                 *ngFor="let m of featuredItem.metrics"
-                class="bg-[#07182c] rounded-2xl p-3.5 border border-white/10 text-center space-y-1"
+                class="bg-[#07182c] rounded-2xl p-3 border border-white/10 text-center space-y-1"
               >
-                <span class="block text-lg sm:text-2xl font-black font-display {{ m.color }}">{{ m.value }}</span>
-                <span class="block text-xs font-bold text-white">{{ m.label }}</span>
+                <span class="block text-base sm:text-xl font-black font-display {{ m.color }}">{{ m.value }}</span>
+                <span class="block text-[11px] sm:text-xs font-bold text-white">{{ m.label }}</span>
                 <span class="block text-[10px] text-slate-400 font-medium">{{ m.sub }}</span>
               </div>
             </div>
@@ -202,7 +202,7 @@ interface ActivityItem {
                   </div>
 
                   <!-- Headline -->
-                  <h4 class="text-sm sm:text-base font-extrabold text-white leading-snug group-hover:text-[#38bdf8] transition-colors line-clamp-2">
+                  <h4 class="text-xs sm:text-sm font-bold text-white leading-snug group-hover:text-[#38bdf8] transition-colors line-clamp-2">
                     {{ item.title }}
                   </h4>
                 </div>
@@ -243,19 +243,19 @@ interface ActivityItem {
             <!-- Stat 1: Meetings 2025 -->
             <div class="space-y-1">
               <span class="block text-[11px] sm:text-xs text-slate-400 font-medium">اجتماعات وملتقيات 2025</span>
-              <span class="block text-xl sm:text-2xl font-black text-[#f4921e] tracking-tight font-mono">+18 لقاءً دولياً</span>
+              <span class="block text-lg sm:text-xl font-black text-[#f4921e] tracking-tight font-mono">+18 لقاءً دولياً</span>
             </div>
 
             <!-- Stat 2: MoUs & Partnerships -->
             <div class="space-y-1">
               <span class="block text-[11px] sm:text-xs text-slate-400 font-medium">مذكرات تفاهم وشراكة</span>
-              <span class="block text-xl sm:text-2xl font-black text-[#38bdf8] tracking-tight font-mono">14 اتفاقية</span>
+              <span class="block text-lg sm:text-xl font-black text-[#38bdf8] tracking-tight font-mono">14 اتفاقية</span>
             </div>
 
             <!-- Stat 3: Humanitarian Clusters -->
             <div class="space-y-1">
               <span class="block text-[11px] sm:text-xs text-slate-400 font-medium">تمثيل في التكتلات الإنسانية</span>
-              <span class="block text-xl sm:text-2xl font-black text-emerald-400 tracking-tight font-mono">4 كتل أممية</span>
+              <span class="block text-lg sm:text-xl font-black text-emerald-400 tracking-tight font-mono">4 كتل أممية</span>
             </div>
 
           </div>

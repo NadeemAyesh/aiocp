@@ -20,23 +20,23 @@ import { CommonModule } from '@angular/common';
           <div class="lg:col-span-7 space-y-5 text-right">
             
             <!-- Eyebrow Category -->
-            <span class="inline-block text-[#f4921e] font-extrabold text-xs sm:text-sm lg:text-base tracking-wide">
+            <span class="inline-block text-[#f4921e] font-extrabold text-xs sm:text-sm tracking-wide">
               المساهمة الأهلية المباشرة
             </span>
 
             <!-- Main Title -->
-            <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-black text-white leading-[1.2] tracking-tight">
+            <h2 class="text-2xl sm:text-3xl lg:text-[34px] font-black text-white leading-[1.2] tracking-tight">
               ترغب في المساهمة وإعادة<br class="hidden sm:inline" />
               إعمار غزة؟
             </h2>
 
             <!-- Subtitle -->
-            <h3 class="text-base sm:text-lg lg:text-xl font-bold text-white/95 leading-relaxed">
+            <h3 class="text-sm sm:text-base lg:text-lg font-bold text-white/95 leading-relaxed">
               هناك خيارات متعددة لإيصال تبرعك بأمان تام
             </h3>
 
             <!-- Description -->
-            <p class="text-slate-300 text-xs sm:text-sm lg:text-base leading-relaxed max-w-2xl font-normal">
+            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-2xl font-normal">
               يمكنك التبرع عبر منصتنا الرسمية المعتمدة والمشفرة للدفع الإلكتروني بالبطاقات البنكية أو التحويلات المصرفية المباشرة (IBAN) مع تزويدك بتقارير هندسية موثقة.
             </p>
 
@@ -73,11 +73,11 @@ import { CommonModule } from '@angular/common';
 
           <!-- LEFT COLUMN (Span 5 in RTL): Floating Gateway Card -->
           <div class="lg:col-span-5">
-            <div class="bg-[#0b1f36]/90 backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden transition-all duration-300 hover:border-white/20">
+            <div class="bg-[#0b1f36]/90 backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-7 shadow-2xl relative overflow-hidden transition-all duration-300 hover:border-white/20">
               
               <!-- Card Header -->
-              <div class="mb-6 space-y-1">
-                <h3 class="text-xl sm:text-2xl font-black text-white tracking-tight">
+              <div class="mb-5 space-y-1">
+                <h3 class="text-lg sm:text-xl font-black text-white tracking-tight">
                   بوابة التبرع المباشر
                 </h3>
                 <p class="text-xs text-slate-400 font-medium">
@@ -86,14 +86,14 @@ import { CommonModule } from '@angular/common';
               </div>
 
               <!-- Interactive Buttons -->
-              <div class="space-y-3.5">
+              <div class="space-y-3">
                 
                 <!-- Button 1: Official Donation Platform (Orange) -->
                 <a 
                   href="https://donate.aiocp.org/home" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  class="w-full px-5 py-4 rounded-2xl bg-[#d97724] hover:bg-[#e6842c] active:bg-[#c4691c] text-white font-extrabold text-sm sm:text-base flex items-center justify-between shadow-[0_4px_20px_rgba(217,119,36,0.35)] hover:shadow-[0_6px_25px_rgba(217,119,36,0.5)] transition-all duration-200 hover:scale-[1.01] active:scale-98 group/btn"
+                  class="w-full px-5 py-3.5 rounded-2xl bg-[#d97724] hover:bg-[#e6842c] active:bg-[#c4691c] text-white font-extrabold text-xs sm:text-sm flex items-center justify-between shadow-[0_4px_20px_rgba(217,119,36,0.35)] hover:shadow-[0_6px_25px_rgba(217,119,36,0.5)] transition-all duration-200 hover:scale-[1.01] active:scale-98 group/btn"
                 >
                   <div class="flex items-center gap-3">
                     <!-- Credit Card Icon -->

@@ -66,6 +66,15 @@ blockquote, li, strong, b, em, i,
   font-family: var(--font-unified) !important;
 }
 
+/* Specific font override for Konstruk Hero Heading */
+.font-konstruk-serif, .font-konstruk-serif * {
+  font-family: 'Playfair Display', Georgia, serif !important;
+}
+
+.font-konstruk-sans, .font-konstruk-sans * {
+  font-family: 'Epilogue', 'Almarai', sans-serif !important;
+}
+
 /* AIOCP Background Pattern */
 .bg-pattern {
   background-color: #f8fafc;

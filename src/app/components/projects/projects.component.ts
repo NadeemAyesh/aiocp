@@ -24,10 +24,10 @@ import { ProjectItem } from '../../models/website.models';
             <span class="w-2 h-2 rounded-full bg-[#f4921e]"></span>
             <span>بناء الأمل واستعادة الحياة</span>
           </div>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-[#00284d] dark:text-white tracking-tight transition-colors">
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-[#00284d] dark:text-white tracking-tight transition-colors">
             مشاريع الإعمار والتنمية
           </h2>
-          <p class="text-slate-600 dark:text-slate-300 text-base transition-colors">
+          <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed transition-colors">
             مشاريع هندسية متخصصة تركز على استعادة البنية التحتية، توفير المأوى الكريم، تأهيل شبكات المياه والصحة، وتوثيق الاحتياجات العاجلة في فلسطين.
           </p>
         </div>
@@ -165,34 +165,34 @@ import { ProjectItem } from '../../models/website.models';
 
             <!-- Project Description & Metrics Content -->
             <div class="p-5 sm:p-6 flex flex-col flex-1 justify-between gap-3.5">
-              <div class="space-y-2">
+              <div class="space-y-1.5">
                 <!-- Title -->
-                <h3 class="text-[17px] sm:text-lg font-black text-[#00284d] dark:text-white group-hover:text-[#046bd2] dark:group-hover:text-[#38bdf8] transition-colors line-clamp-2 leading-snug min-h-[2.75rem]">
+                <h3 class="text-sm sm:text-[15px] font-extrabold text-[#00284d] dark:text-white group-hover:text-[#046bd2] dark:group-hover:text-[#38bdf8] transition-colors line-clamp-2 leading-snug min-h-[2.5rem]">
                   {{ proj.title }}
                 </h3>
 
                 <!-- Excerpt -->
-                <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-[13px] line-clamp-2 leading-relaxed font-normal min-h-[2.5rem] transition-colors">
+                <p class="text-slate-600 dark:text-slate-300 text-[11px] sm:text-xs line-clamp-2 leading-relaxed font-normal min-h-[2.25rem] transition-colors">
                   {{ proj.description }}
                 </p>
               </div>
 
               <!-- Financial & Impact Highlight Box -->
-              <div class="bg-gradient-to-br from-slate-50 via-slate-50 to-[#f0f7ff] dark:from-white/[0.04] dark:via-white/[0.03] dark:to-white/[0.02] rounded-2xl p-3.5 border border-slate-200/80 dark:border-white/10 space-y-2.5 transition-colors">
+              <div class="bg-gradient-to-br from-slate-50 via-slate-50 to-[#f0f7ff] dark:from-white/[0.04] dark:via-white/[0.03] dark:to-white/[0.02] rounded-2xl p-3 border border-slate-200/80 dark:border-white/10 space-y-2 transition-colors">
                 <div class="flex items-center justify-between gap-3">
                   <div class="space-y-0.5 min-w-0">
-                    <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
-                      <span class="w-2 h-2 rounded-full bg-[#f4921e]"></span>
+                    <span class="text-[10px] sm:text-[11px] font-bold text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                      <span class="w-1.5 h-1.5 rounded-full bg-[#f4921e]"></span>
                       <span>قيمة التمويل المطلوب</span>
                     </span>
-                    <span class="text-lg sm:text-xl font-black text-[#00284d] dark:text-white font-mono tracking-tight block">
+                    <span class="text-base sm:text-lg font-black text-[#00284d] dark:text-white font-mono tracking-tight block">
                       {{ proj.targetedBudget }}
                     </span>
                   </div>
 
-                  <div class="text-left space-y-0.5 border-r border-slate-200/80 dark:border-white/10 pr-3.5 shrink-0">
-                    <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400 block">المستفيدون المقدرون</span>
-                    <span class="text-xs sm:text-sm font-extrabold text-[#046bd2] dark:text-[#38bdf8] block">
+                  <div class="text-left space-y-0.5 border-r border-slate-200/80 dark:border-white/10 pr-3 shrink-0">
+                    <span class="text-[10px] sm:text-[11px] font-bold text-slate-500 dark:text-slate-400 block">المستفيدون المقدرون</span>
+                    <span class="text-xs sm:text-[13px] font-extrabold text-[#046bd2] dark:text-[#38bdf8] block">
                       {{ proj.beneficiaries }}
                     </span>
                   </div>
@@ -200,17 +200,17 @@ import { ProjectItem } from '../../models/website.models';
 
                 <!-- Collected / Raised Amount Row -->
                 <div *ngIf="proj.raisedBudget" class="pt-2 border-t border-slate-200/60 dark:border-white/10 flex items-center justify-between text-xs">
-                  <span class="text-slate-500 dark:text-slate-400 font-medium">التمويل المحصل:</span>
-                  <span class="font-bold font-mono text-emerald-600 dark:text-emerald-400">{{ proj.raisedBudget }}</span>
+                  <span class="text-slate-500 dark:text-slate-400 font-medium text-[11px]">التمويل المحصل:</span>
+                  <span class="font-bold font-mono text-emerald-600 dark:text-emerald-400 text-xs">{{ proj.raisedBudget }}</span>
                 </div>
               </div>
 
               <!-- Single Clean Action Button (تفاصيل المشروع - Compact with no empty gap) -->
               <button 
                 (click)="projectDetails.emit(proj)"
-                class="w-full py-2.5 sm:py-3 px-4 rounded-xl bg-slate-50 dark:bg-white/5 hover:bg-[#004380] dark:hover:bg-[#004380] text-[#00284d] dark:text-white hover:text-white border border-slate-200/90 dark:border-white/10 hover:border-[#004380] text-xs sm:text-sm font-bold transition-all duration-200 flex items-center justify-center gap-2 shadow-sm cursor-pointer group/btn"
+                class="w-full py-2.5 px-4 rounded-xl bg-slate-50 dark:bg-white/5 hover:bg-[#004380] dark:hover:bg-[#004380] text-[#00284d] dark:text-white hover:text-white border border-slate-200/90 dark:border-white/10 hover:border-[#004380] text-xs font-bold transition-all duration-200 flex items-center justify-center gap-2 shadow-sm cursor-pointer group/btn"
               >
-                <svg class="w-4 h-4 text-slate-400 dark:text-slate-300 group-hover/btn:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                <svg class="w-3.5 h-3.5 text-slate-400 dark:text-slate-300 group-hover/btn:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                 <span>تفاصيل المشروع</span>
               </button>
 
