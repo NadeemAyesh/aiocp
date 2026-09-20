@@ -70,90 +70,322 @@ import { MediaItem } from '../../models/website.models';
 
         <!-- Dynamic Content Display Based on Tab -->
 
-        <!-- TAB 1: VIDEOS -->
-        <div *ngIf="activeTab() === 'video'" class="space-y-8 animate-fadeIn">
-          <!-- Featured Video Hero -->
-          <div class="bg-black/30 border border-white/15 rounded-3xl overflow-hidden p-4 sm:p-6 shadow-2xl backdrop-blur-md grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-            
-            <div class="lg:col-span-7 relative rounded-2xl overflow-hidden group cursor-pointer aspect-video" (click)="playVideo(videoItems[0])">
-              <img [src]="videoItems[0].image" [alt]="videoItems[0].title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors flex items-center justify-center">
-                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#f4921e] text-[#001f3b] flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300">
-                  <svg class="w-8 h-8 fill-current ml-1" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                </div>
-              </div>
-              <span class="absolute bottom-4 right-4 bg-black/70 px-3 py-1 rounded-md text-xs font-mono font-bold text-white">
-                {{ videoItems[0].duration }}
-              </span>
-            </div>
-
-            <div class="lg:col-span-5 space-y-4 p-2">
-              <span class="px-3 py-1 rounded-full text-xs font-bold bg-blue-500/20 text-blue-300 border border-blue-400/30">
-                فيديو مميز
-              </span>
-              <h3 class="text-lg sm:text-xl font-extrabold text-white leading-snug">
-                {{ videoItems[0].title }}
-              </h3>
-              <p class="text-white/70 text-xs sm:text-sm leading-relaxed">
-                مشاهد حية ومباشرة ترصد الآليات الهندسية وفرق العمل الميداني التابعة للهيئة أثناء فتح الشوارع المغلقة وتسهيل مرور قوافل الإغاثة الإنسانية.
-              </p>
-              <div class="pt-2 flex items-center justify-between text-xs text-white/60">
-                <span>المتحدث: {{ videoItems[0].speaker }}</span>
-                <span>{{ videoItems[0].date }}</span>
-              </div>
-              <button (click)="playVideo(videoItems[0])" class="w-full py-3 rounded-xl bg-[#008ecd] hover:bg-[#046bd2] text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2">
-                <span>مشاهدة الفيديو الآن</span>
-                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <!-- TAB 1: VIDEOS (Expanding Card Gallery) -->
+        <div *ngIf="activeTab() === 'video'" class="animate-fadeIn space-y-4">
+          <!-- Gallery Header Helper -->
+          <div class="flex items-center justify-between px-2 text-xs text-white/60">
+            <span class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-[#f4921e] animate-pulse"></span>
+              <span>انقر على أي شريحة لتوسيعها واستعراض الفيديو</span>
+            </span>
+            <div class="flex items-center gap-2">
+              <button 
+                (click)="prevVideo()" 
+                class="w-8 h-8 rounded-full bg-white/10 hover:bg-[#f4921e] hover:text-[#001f3b] text-white flex items-center justify-center transition cursor-pointer"
+                title="الفيديو السابق"
+              >
+                <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </button>
+              <button 
+                (click)="nextVideo()" 
+                class="w-8 h-8 rounded-full bg-white/10 hover:bg-[#f4921e] hover:text-[#001f3b] text-white flex items-center justify-center transition cursor-pointer"
+                title="الفيديو التالي"
+              >
+                <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
               </button>
             </div>
-
           </div>
 
-          <!-- Other Videos Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
+          <!-- Expanding Cards Container -->
+          <div class="expanding-cards-container flex gap-2.5 sm:gap-3.5 h-[500px] sm:h-[560px] w-full overflow-x-auto lg:overflow-visible pb-4 pt-1 px-1 scrollbar-none snap-x">
             <div 
-              *ngFor="let vid of videoItems.slice(1)"
-              (click)="playVideo(vid)"
-              class="bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-300 cursor-pointer group"
+              *ngFor="let vid of videoItems; let i = index"
+              (click)="setActiveVideo(i, $event)"
+              class="expanding-card relative rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer select-none border transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group shrink-0 lg:shrink"
+              [class.card-expanded]="activeVideoIndex() === i"
+              [class.card-collapsed]="activeVideoIndex() !== i"
+              [class.border-[#f4921e]/80]="activeVideoIndex() === i"
+              [class.shadow-[0_12px_40px_rgba(244,146,30,0.25)]]="activeVideoIndex() === i"
+              [class.border-white/15]="activeVideoIndex() !== i"
+              [class.hover:border-white/40]="activeVideoIndex() !== i"
             >
-              <div class="relative h-48 overflow-hidden">
-                <img [src]="vid.image" [alt]="vid.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                  <div class="w-12 h-12 rounded-full bg-[#f4921e]/90 text-[#001f3b] flex items-center justify-center group-hover:scale-110 transition">
-                    <svg class="w-6 h-6 fill-current ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              <!-- Background Image -->
+              <img 
+                [src]="vid.image" 
+                [alt]="vid.title" 
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+
+              <!-- Dark Overlay Gradients -->
+              <div 
+                class="absolute inset-0 transition-opacity duration-500"
+                [ngClass]="activeVideoIndex() === i 
+                  ? 'bg-gradient-to-t from-[#00172e] via-[#00172e]/70 via-50% to-black/25' 
+                  : 'bg-black/60 group-hover:bg-black/35'"
+              ></div>
+
+              <!-- Collapsed State Content (Sleek Vertical Strip) -->
+              <div 
+                *ngIf="activeVideoIndex() !== i"
+                class="absolute inset-0 flex flex-col items-center justify-between p-3.5 sm:p-4 z-10 pointer-events-none"
+              >
+                <span class="w-6 h-6 rounded-full bg-white/10 border border-white/20 text-white/80 text-[11px] font-bold flex items-center justify-center">
+                  {{ i + 1 }}
+                </span>
+                
+                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/60 backdrop-blur-md border border-white/25 text-white flex items-center justify-center group-hover:bg-[#f4921e] group-hover:text-[#001f3b] group-hover:scale-110 transition-all duration-300 shadow-xl">
+                  <svg class="w-4 h-4 sm:w-5 sm:h-5 fill-current ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+
+              <!-- Expanded State Content (Rich Details matching reference) -->
+              <div 
+                *ngIf="activeVideoIndex() === i"
+                class="absolute inset-0 flex flex-col justify-between p-5 sm:p-7 z-10 animate-fadeScale overflow-hidden"
+              >
+                <!-- Top Row Badges -->
+                <div class="flex items-center justify-between">
+                  <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#f4921e] text-[#001f3b] shadow-md flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <span>فيديو توثيقي</span>
+                  </span>
+                  <span class="bg-black/65 backdrop-blur-md border border-white/20 px-3 py-1 rounded-xl text-xs font-mono font-bold text-white/95">
+                    {{ vid.duration }}
+                  </span>
+                </div>
+
+                <!-- Center Floating Play Button -->
+                <div class="self-center my-auto">
+                  <button 
+                    (click)="playVideo(vid); $event.stopPropagation()"
+                    class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#f4921e] hover:bg-[#ff9f30] text-[#001f3b] flex items-center justify-center shadow-[0_0_35px_rgba(244,146,30,0.55)] hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
+                    title="تشغيل الفيديو الآن"
+                  >
+                    <svg class="w-8 h-8 sm:w-9 sm:h-9 fill-current ml-1" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  </button>
+                </div>
+
+                <!-- Bottom Text, Tags & Actions -->
+                <div class="space-y-3 pt-3">
+                  <!-- Speaker & Date Meta -->
+                  <div class="flex flex-wrap items-center gap-3 text-xs text-white/70">
+                    <span *ngIf="vid.speaker" class="flex items-center gap-1.5 text-[#38bdf8] font-medium">
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                      <span>{{ vid.speaker }}</span>
+                    </span>
+                    <span *ngIf="vid.speaker">•</span>
+                    <span class="flex items-center gap-1.5">
+                      <svg class="w-3.5 h-3.5 text-[#f4921e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                      <span>{{ vid.date }}</span>
+                    </span>
+                  </div>
+
+                  <!-- Title -->
+                  <h3 class="text-lg sm:text-xl md:text-2xl font-black text-white leading-snug line-clamp-2">
+                    {{ vid.title }}
+                  </h3>
+
+                  <!-- Description -->
+                  <p *ngIf="vid.description" class="text-xs sm:text-sm text-white/80 leading-relaxed max-w-3xl line-clamp-2 sm:line-clamp-3">
+                    {{ vid.description }}
+                  </p>
+
+                  <!-- Tags & Action Button Row (Like Reference Image Pills) -->
+                  <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                    <!-- Pills / Tags -->
+                    <div class="flex flex-wrap items-center gap-2">
+                      <span 
+                        *ngFor="let tag of vid.tags"
+                        class="px-3.5 py-1 rounded-full text-xs font-semibold bg-[#008ecd]/25 text-[#38bdf8] border border-[#008ecd]/40 backdrop-blur-md"
+                      >
+                        {{ tag }}
+                      </span>
+                    </div>
+
+                    <!-- Watch Action Button -->
+                    <button 
+                      (click)="playVideo(vid); $event.stopPropagation()"
+                      class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-gradient-to-r from-[#f4921e] to-[#de7c0d] hover:from-[#ff9f30] hover:to-[#f4921e] text-[#001f3b] text-xs sm:text-sm font-black transition-all shadow-lg hover:shadow-orange-500/30 flex items-center gap-2 shrink-0 cursor-pointer active:scale-95"
+                    >
+                      <span>مشاهدة الفيديو الآن</span>
+                      <svg class="w-4 h-4 fill-current ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </button>
                   </div>
                 </div>
-                <span class="absolute bottom-3 right-3 bg-black/70 px-2.5 py-0.5 rounded text-[11px] font-mono text-white">
-                  {{ vid.duration }}
-                </span>
-              </div>
-              <div class="p-4 space-y-2">
-                <span class="text-[11px] text-white/50">{{ vid.date }}</span>
-                <h4 class="text-xs sm:text-[13px] font-bold text-white group-hover:text-[#f4921e] transition line-clamp-2">
-                  {{ vid.title }}
-                </h4>
-                <p *ngIf="vid.speaker" class="text-xs text-blue-300">{{ vid.speaker }}</p>
+
               </div>
             </div>
+          </div>
+
+          <!-- Bottom Dot Indicators -->
+          <div class="flex items-center justify-center gap-2 pt-2">
+            <button 
+              *ngFor="let vid of videoItems; let i = index"
+              (click)="setActiveVideo(i)"
+              class="h-2 rounded-full transition-all duration-300 cursor-pointer"
+              [class.w-8]="activeVideoIndex() === i"
+              [class.bg-[#f4921e]]="activeVideoIndex() === i"
+              [class.w-2]="activeVideoIndex() !== i"
+              [class.bg-white/25]="activeVideoIndex() !== i"
+              [class.hover:bg-white/45]="activeVideoIndex() !== i"
+              [attr.aria-label]="'الانتقال إلى ' + vid.title"
+            ></button>
           </div>
         </div>
 
-        <!-- TAB 2: PHOTOS -->
-        <div *ngIf="activeTab() === 'photo'" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 animate-fadeIn">
-          <div 
-            *ngFor="let pic of photoItems"
-            (click)="previewPhoto(pic)"
-            class="group relative rounded-2xl overflow-hidden border border-white/15 h-64 cursor-pointer shadow-lg"
-          >
-            <img [src]="pic.image" [alt]="pic.title" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
-            <div class="absolute bottom-4 right-4 left-4 space-y-1">
-              <span class="text-[11px] text-[#f4921e] font-bold">{{ pic.date }}</span>
-              <p class="text-xs font-semibold text-white line-clamp-2">{{ pic.title }}</p>
+        <!-- TAB 2: PHOTOS (Expanding Card Gallery) -->
+        <div *ngIf="activeTab() === 'photo'" class="animate-fadeIn space-y-4">
+          <!-- Gallery Header Helper -->
+          <div class="flex items-center justify-between px-2 text-xs text-white/60">
+            <span class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-[#008ecd] animate-pulse"></span>
+              <span>انقر على أي صورة لتوسيعها واستعراض تفاصيلها</span>
+            </span>
+            <div class="flex items-center gap-2">
+              <button 
+                (click)="prevPhoto()" 
+                class="w-8 h-8 rounded-full bg-white/10 hover:bg-[#008ecd] hover:text-white text-white flex items-center justify-center transition cursor-pointer"
+                title="الصورة السابقة"
+              >
+                <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </button>
+              <button 
+                (click)="nextPhoto()" 
+                class="w-8 h-8 rounded-full bg-white/10 hover:bg-[#008ecd] hover:text-white text-white flex items-center justify-center transition cursor-pointer"
+                title="الصورة التالية"
+              >
+                <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+              </button>
             </div>
-            <div class="absolute top-3 left-3 w-8 h-8 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg>
+          </div>
+
+          <!-- Expanding Cards Container -->
+          <div class="expanding-cards-container flex gap-2.5 sm:gap-3.5 h-[500px] sm:h-[560px] w-full overflow-x-auto lg:overflow-visible pb-4 pt-1 px-1 scrollbar-none snap-x">
+            <div 
+              *ngFor="let pic of photoItems; let i = index"
+              (click)="setActivePhoto(i, $event)"
+              class="expanding-card relative rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer select-none border transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group shrink-0 lg:shrink"
+              [class.card-expanded]="activePhotoIndex() === i"
+              [class.card-collapsed]="activePhotoIndex() !== i"
+              [class.border-[#008ecd]/80]="activePhotoIndex() === i"
+              [class.shadow-[0_12px_40px_rgba(0,142,205,0.25)]]="activePhotoIndex() === i"
+              [class.border-white/15]="activePhotoIndex() !== i"
+              [class.hover:border-white/40]="activePhotoIndex() !== i"
+            >
+              <!-- Background Image -->
+              <img 
+                [src]="pic.image" 
+                [alt]="pic.title" 
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+
+              <!-- Dark Overlay Gradients -->
+              <div 
+                class="absolute inset-0 transition-opacity duration-500"
+                [ngClass]="activePhotoIndex() === i 
+                  ? 'bg-gradient-to-t from-[#00172e] via-[#00172e]/70 via-50% to-black/25' 
+                  : 'bg-black/60 group-hover:bg-black/35'"
+              ></div>
+
+              <!-- Collapsed State Content (Sleek Vertical Strip) -->
+              <div 
+                *ngIf="activePhotoIndex() !== i"
+                class="absolute inset-0 flex flex-col items-center justify-between p-3.5 sm:p-4 z-10 pointer-events-none"
+              >
+                <span class="w-6 h-6 rounded-full bg-white/10 border border-white/20 text-white/80 text-[11px] font-bold flex items-center justify-center">
+                  {{ i + 1 }}
+                </span>
+                
+                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/60 backdrop-blur-md border border-white/25 text-white flex items-center justify-center group-hover:bg-[#008ecd] group-hover:text-white group-hover:scale-110 transition-all duration-300 shadow-xl">
+                  <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg>
+                </div>
+              </div>
+
+              <!-- Expanded State Content (Rich Details matching reference) -->
+              <div 
+                *ngIf="activePhotoIndex() === i"
+                class="absolute inset-0 flex flex-col justify-between p-5 sm:p-7 z-10 animate-fadeScale overflow-hidden"
+              >
+                <!-- Top Row Badges -->
+                <div class="flex items-center justify-between">
+                  <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#008ecd] text-white shadow-md flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <span>معرض صور ميداني</span>
+                  </span>
+                  <span class="bg-black/65 backdrop-blur-md border border-white/20 px-3 py-1 rounded-xl text-xs font-mono font-bold text-white/95">
+                    {{ pic.date }}
+                  </span>
+                </div>
+
+                <!-- Center Floating Zoom Button -->
+                <div class="self-center my-auto">
+                  <button 
+                    (click)="previewPhoto(pic); $event.stopPropagation()"
+                    class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#008ecd] hover:bg-[#046bd2] text-white flex items-center justify-center shadow-[0_0_35px_rgba(0,142,205,0.55)] hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
+                    title="تكبير واستعراض الصورة"
+                  >
+                    <svg class="w-8 h-8 sm:w-9 sm:h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg>
+                  </button>
+                </div>
+
+                <!-- Bottom Text, Tags & Actions -->
+                <div class="space-y-3 pt-3">
+                  <!-- Date Meta -->
+                  <div class="flex items-center gap-2 text-xs text-[#f4921e] font-bold">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <span>تاريخ التوثيق الميداني: {{ pic.date }}</span>
+                  </div>
+
+                  <!-- Title -->
+                  <h3 class="text-lg sm:text-xl md:text-2xl font-black text-white leading-snug line-clamp-2">
+                    {{ pic.title }}
+                  </h3>
+
+                  <!-- Description -->
+                  <p *ngIf="pic.description" class="text-xs sm:text-sm text-white/80 leading-relaxed max-w-3xl line-clamp-2 sm:line-clamp-3">
+                    {{ pic.description }}
+                  </p>
+
+                  <!-- Tags & Action Button Row (Like Reference Image Pills) -->
+                  <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                    <!-- Pills / Tags -->
+                    <div class="flex flex-wrap items-center gap-2">
+                      <span 
+                        *ngFor="let tag of pic.tags"
+                        class="px-3.5 py-1 rounded-full text-xs font-semibold bg-[#008ecd]/25 text-[#38bdf8] border border-[#008ecd]/40 backdrop-blur-md"
+                      >
+                        {{ tag }}
+                      </span>
+                    </div>
+
+                    <!-- Full Preview Action Button -->
+                    <button 
+                      (click)="previewPhoto(pic); $event.stopPropagation()"
+                      class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-gradient-to-r from-[#008ecd] to-[#046bd2] hover:from-[#00a3e8] hover:to-[#008ecd] text-white text-xs sm:text-sm font-black transition-all shadow-lg hover:shadow-sky-500/30 flex items-center gap-2 shrink-0 cursor-pointer active:scale-95"
+                    >
+                      <span>استعراض بالدقة الكاملة</span>
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
             </div>
+          </div>
+
+          <!-- Bottom Dot Indicators -->
+          <div class="flex items-center justify-center gap-2 pt-2">
+            <button 
+              *ngFor="let pic of photoItems; let i = index"
+              (click)="setActivePhoto(i)"
+              class="h-2 rounded-full transition-all duration-300 cursor-pointer"
+              [class.w-8]="activePhotoIndex() === i"
+              [class.bg-[#008ecd]]="activePhotoIndex() === i"
+              [class.w-2]="activePhotoIndex() !== i"
+              [class.bg-white/25]="activePhotoIndex() !== i"
+              [class.hover:bg-white/45]="activePhotoIndex() !== i"
+              [attr.aria-label]="'الانتقال إلى ' + pic.title"
+            ></button>
           </div>
         </div>
 
@@ -217,12 +449,48 @@ import { MediaItem } from '../../models/website.models';
     .animate-fadeIn {
       animation: fadeIn 0.25s ease-out forwards;
     }
+    @keyframes fadeScale {
+      from { opacity: 0; transform: scale(0.97); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .animate-fadeScale {
+      animation: fadeScale 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
     .scrollbar-none::-webkit-scrollbar {
       display: none;
     }
     .scrollbar-none {
       -ms-overflow-style: none;
       scrollbar-width: none;
+    }
+    .expanding-card {
+      will-change: flex-grow, flex-basis, width;
+    }
+    .card-expanded {
+      flex: 5.5 1 0% !important;
+    }
+    .card-collapsed {
+      flex: 1 1 0% !important;
+    }
+    @media (max-width: 1024px) {
+      .card-expanded {
+        min-width: 320px !important;
+        flex: 0 0 320px !important;
+      }
+      .card-collapsed {
+        min-width: 65px !important;
+        flex: 0 0 65px !important;
+      }
+    }
+    @media (min-width: 640px) and (max-width: 1024px) {
+      .card-expanded {
+        min-width: 440px !important;
+        flex: 0 0 440px !important;
+      }
+      .card-collapsed {
+        min-width: 76px !important;
+        flex: 0 0 76px !important;
+      }
     }
   `]
 })
@@ -234,6 +502,8 @@ export class MediaCenterComponent {
   mediaItems: MediaItem[] = this.dataService.mediaItems;
 
   activeTab = signal<'video' | 'photo' | 'report' | 'interview'>('video');
+  activeVideoIndex = signal<number>(0);
+  activePhotoIndex = signal<number>(0);
 
   mediaTabs = [
     { key: 'video' as const, label: 'مكتبة الفيديو' },
@@ -260,6 +530,48 @@ export class MediaCenterComponent {
 
   selectTab(tab: 'video' | 'photo' | 'report' | 'interview') {
     this.activeTab.set(tab);
+  }
+
+  setActiveVideo(index: number, event?: Event) {
+    if (this.activeVideoIndex() === index) {
+      this.playVideo(this.videoItems[index]);
+    } else {
+      this.activeVideoIndex.set(index);
+      if (event?.currentTarget) {
+        (event.currentTarget as HTMLElement).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+    }
+  }
+
+  setActivePhoto(index: number, event?: Event) {
+    if (this.activePhotoIndex() === index) {
+      this.previewPhoto(this.photoItems[index]);
+    } else {
+      this.activePhotoIndex.set(index);
+      if (event?.currentTarget) {
+        (event.currentTarget as HTMLElement).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+    }
+  }
+
+  nextVideo() {
+    const next = (this.activeVideoIndex() + 1) % this.videoItems.length;
+    this.activeVideoIndex.set(next);
+  }
+
+  prevVideo() {
+    const prev = (this.activeVideoIndex() - 1 + this.videoItems.length) % this.videoItems.length;
+    this.activeVideoIndex.set(prev);
+  }
+
+  nextPhoto() {
+    const next = (this.activePhotoIndex() + 1) % this.photoItems.length;
+    this.activePhotoIndex.set(next);
+  }
+
+  prevPhoto() {
+    const prev = (this.activePhotoIndex() - 1 + this.photoItems.length) % this.photoItems.length;
+    this.activePhotoIndex.set(prev);
   }
 
   playVideo(item: MediaItem) {

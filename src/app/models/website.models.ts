@@ -57,6 +57,8 @@ export interface MediaItem {
   fileSize?: string;
   downloadUrl?: string;
   speaker?: string;
+  description?: string;
+  tags?: string[];
 }
 
 export interface Partner {
