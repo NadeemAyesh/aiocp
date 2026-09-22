@@ -119,9 +119,9 @@ import { ThemeService } from '../../services/theme.service';
               >
                 <div class="bg-[#00284d] dark:bg-[#06182e] text-white rounded-2xl shadow-2xl border border-white/15 p-2 overflow-hidden backdrop-blur-xl">
                   <a href="#about" (click)="closeDropdown()" class="dropdown-link">حول الهيئة</a>
-                  <a href="#about" (click)="closeDropdown()" class="dropdown-link">الرؤية والرسالة والأهداف</a>
-                  <a href="#about" (click)="closeDropdown()" class="dropdown-link">مجلس الإدارة والهيكل</a>
-                  <a href="#about" (click)="closeDropdown()" class="dropdown-link">شركاؤنا في النجاح</a>
+                  <a href="#vision" (click)="closeDropdown()" class="dropdown-link">الرؤية والرسالة والأهداف</a>
+                  <a href="#partners" (click)="closeDropdown()" class="dropdown-link">مجلس الإدارة والهيكل</a>
+                  <a href="#partners" (click)="closeDropdown()" class="dropdown-link">شركاؤنا في النجاح</a>
                 </div>
               </div>
             </div>
@@ -331,9 +331,9 @@ import { ThemeService } from '../../services/theme.service';
             <span class="text-xs text-[#f4921e] font-extrabold tracking-wider">من نحن</span>
             <div class="grid grid-cols-2 gap-2 mt-2">
               <a href="#about" (click)="closeMobileMenu()" class="mobile-sublink">حول الهيئة</a>
-              <a href="#about" (click)="closeMobileMenu()" class="mobile-sublink">الرؤية والأهداف</a>
-              <a href="#about" (click)="closeMobileMenu()" class="mobile-sublink">الهيكل التنظيمي</a>
-              <a href="#about" (click)="closeMobileMenu()" class="mobile-sublink">شركاؤنا</a>
+              <a href="#vision" (click)="closeMobileMenu()" class="mobile-sublink">الرؤية والأهداف</a>
+              <a href="#partners" (click)="closeMobileMenu()" class="mobile-sublink">الهيكل التنظيمي</a>
+              <a href="#partners" (click)="closeMobileMenu()" class="mobile-sublink">شركاؤنا</a>
             </div>
           </div>
 

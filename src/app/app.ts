@@ -6,10 +6,12 @@ import { NewsActivitiesComponent } from './components/news-activities/news-activ
 import { ProjectsComponent } from './components/projects/projects.component';
 import { DirectDonationComponent } from './components/direct-donation/direct-donation.component';
 import { MediaCenterComponent } from './components/media-center/media-center.component';
+import { AboutOverviewComponent } from './components/about-overview/about-overview.component';
 import { AboutVisionPartnersComponent } from './components/about-vision/about-vision.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ModalsComponent } from './components/modals/modals.component';
 import { ProjectItem, MediaItem, NewsArticle } from './models/website.models';
+import Lenis from 'lenis';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +23,7 @@ import { ProjectItem, MediaItem, NewsArticle } from './models/website.models';
     NewsActivitiesComponent,
     ProjectsComponent,
     DirectDonationComponent,
+    AboutOverviewComponent,
     MediaCenterComponent,
     AboutVisionPartnersComponent,
     FooterComponent,
@@ -47,21 +50,34 @@ export class App implements OnInit {
   scrollProgress = signal<number>(0);
   isFabOpen = signal<boolean>(false);
 
+  private scrollTicking = false;
+
   @HostListener('window:scroll')
   onWindowScroll(): void {
-    if (!isPlatformBrowser(this.platformId)) return;
-    const scrollY = window.scrollY || document.documentElement.scrollTop;
-    this.showBackToTop.set(scrollY > 280);
+    if (this.lenis || !isPlatformBrowser(this.platformId) || this.scrollTicking) return;
+    this.scrollTicking = true;
+    requestAnimationFrame(() => {
+      const scrollY = window.scrollY || document.documentElement.scrollTop;
+      const shouldShow = scrollY > 280;
+      if (this.showBackToTop() !== shouldShow) {
+        this.showBackToTop.set(shouldShow);
+      }
 
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    if (docHeight > 0) {
-      const progress = Math.min(100, Math.max(0, Math.round((scrollY / docHeight) * 100)));
-      this.scrollProgress.set(progress);
-    }
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight > 0) {
+        const progress = Math.min(100, Math.max(0, Math.round((scrollY / docHeight) * 100)));
+        if (Math.abs(this.scrollProgress() - progress) >= 1) {
+          this.scrollProgress.set(progress);
+        }
+      }
+      this.scrollTicking = false;
+    });
   }
 
   scrollToTop(): void {
-    if (isPlatformBrowser(this.platformId)) {
+    if (this.lenis) {
+      this.lenis.scrollTo(0, { duration: 1.2 });
+    } else if (isPlatformBrowser(this.platformId)) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
@@ -127,9 +143,12 @@ export class App implements OnInit {
     this.showDonateModal.set(false);
   }
 
+  private lenis?: Lenis;
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.dismissPreloader();
+      this.initLenis();
     }
   }
 
@@ -144,5 +163,37 @@ export class App implements OnInit {
         }, 650);
       }
     }, 750);
+  }
+
+  private initLenis(): void {
+    this.lenis = new Lenis({
+      autoRaf: true,
+      smoothWheel: true,
+      duration: 1.1,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.0,
+      anchors: {
+        offset: -88
+      },
+      prevent: (node: HTMLElement) => {
+        return node.closest('.scrollbar-none, .overflow-y-auto, .overflow-x-auto, textarea, input, select, app-modals') !== null;
+      }
+    });
+
+    this.lenis.on('scroll', (e: any) => {
+      const scrollY = typeof e.scroll === 'number' ? e.scroll : window.scrollY;
+      const shouldShow = scrollY > 280;
+      if (this.showBackToTop() !== shouldShow) {
+        this.showBackToTop.set(shouldShow);
+      }
+
+      const limit = e.limit || (document.documentElement.scrollHeight - window.innerHeight);
+      if (limit > 0) {
+        const progress = Math.min(100, Math.max(0, Math.round((scrollY / limit) * 100)));
+        if (Math.abs(this.scrollProgress() - progress) >= 1) {
+          this.scrollProgress.set(progress);
+        }
+      }
+    });
   }
 }

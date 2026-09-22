@@ -53,9 +53,9 @@ export interface AtelierSlide {
               'scale-100': currentSlide() !== idx
             }"
           />
-          <!-- Multi-Layer Cinematic Gradients for Superb Contrast without Hiding the Image -->
-          <div class="absolute inset-0 bg-gradient-to-t from-[#001428] via-[#00172e]/55 to-black/25 pointer-events-none"></div>
-          <div class="absolute inset-0 bg-gradient-to-l from-[#001428]/95 via-[#00172e]/70 via-50% to-black/15 pointer-events-none"></div>
+          <!-- Multi-Layer Cinematic Gradients (Lightened & Softened for Rich Background Visibility) -->
+          <div class="absolute inset-0 bg-gradient-to-t from-[#001428]/70 via-[#00172e]/30 to-transparent pointer-events-none"></div>
+          <div class="absolute inset-0 bg-gradient-to-l from-[#001428]/75 via-[#00172e]/40 via-50% to-transparent pointer-events-none"></div>
         </div>
       </div>
 
@@ -127,7 +127,7 @@ export interface AtelierSlide {
               <circle r="2.5" fill="#ffffff" />
             </g>
           </svg>
-          <div class="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-[#001428] to-transparent pointer-events-none"></div>
+          <div class="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-[#001428]/60 to-transparent pointer-events-none"></div>
         </div>
       </div>
 

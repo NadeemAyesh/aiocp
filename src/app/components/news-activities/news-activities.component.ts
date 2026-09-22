@@ -1,4 +1,4 @@
-import { Component, inject, signal, Output, EventEmitter } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WebsiteDataService } from '../../services/website-data.service';
 import { NewsArticle } from '../../models/website.models';
@@ -20,14 +20,22 @@ interface ActivityItem {
 @Component({
   selector: 'app-news-activities',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule],
   template: `
     <!-- News & Activities Section (Exact Dark Navy Executive Layout as in Screenshot) -->
-    <section id="activities" class="py-20 lg:py-28 bg-[#061527] text-white relative overflow-hidden">
-      
-      <!-- Subtle Radial Glow in Background -->
-      <div class="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-3xl pointer-events-none -z-0"></div>
-      <div class="absolute bottom-10 left-10 w-[400px] h-[400px] bg-orange-500/5 rounded-full blur-3xl pointer-events-none -z-0"></div>
+    <section id="activities" class="aura-container py-20 lg:py-28 text-white relative overflow-hidden">
+      <!-- Aura Layer 1: Wide Navy/Blue Screen Gradient -->
+      <div class="aura-layer-1 absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+
+      <!-- Aura Layer 2: Radial Amber/Navy Center Glow -->
+      <div class="aura-layer-2 absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+
+      <!-- Aura Layer 3: Cyan/Sky Soft Overlay -->
+      <div class="aura-layer-3 absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+
+      <!-- Film-Grain Noise Overlay (GPU-Accelerated CSS Pattern) -->
+      <div class="aura-grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -185,7 +193,7 @@ interface ActivityItem {
           <div class="lg:col-span-5 space-y-4">
             
             <div 
-              *ngFor="let item of secondaryItems"
+              *ngFor="let item of secondaryItems; trackBy: trackByActivity"
               (click)="selectFeatured(item)"
               class="bg-[#0b213a]/80 hover:bg-[#0b213a] rounded-2xl p-4 sm:p-5 border border-white/10 hover:border-white/25 transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer group flex flex-col justify-between"
               [class.ring-2]="featuredItem.id === item.id"
@@ -290,6 +298,41 @@ interface ActivityItem {
     }
     .animate-ticker:hover {
       animation-play-state: paused;
+    }
+
+    /* Aura Background Styles (AIOCP Navy & Amber Palette - Fast GPU Optimized) */
+    .aura-container {
+      background-color: #00162b;
+      isolation: isolate;
+      contain: paint;
+    }
+    .aura-layer-1 {
+      background: radial-gradient(ellipse 90% 60% at 50% 50%, rgba(0, 142, 205, 0.35) 0%, rgba(0, 75, 140, 0.22) 50%, transparent 80%);
+      mix-blend-mode: screen;
+      filter: blur(40px);
+      transform: translateZ(0);
+    }
+    .aura-layer-2 {
+      background: radial-gradient(ellipse 65% 45% at 50% 60%, rgba(244, 146, 30, 0.3) 0%, rgba(0, 142, 205, 0.15) 45%, transparent 75%);
+      mix-blend-mode: screen;
+      filter: blur(35px);
+      opacity: 0.95;
+      transform: translateZ(0);
+    }
+    .aura-layer-3 {
+      background: radial-gradient(ellipse 75% 35% at 50% 50%, rgba(56, 189, 248, 0.14) 0%, transparent 70%);
+      mix-blend-mode: overlay;
+      filter: blur(25px);
+      opacity: 0.85;
+      transform: translateZ(0);
+    }
+    .aura-grain {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0.18 0.6 0.06 0 0.07 0.18 0.6 0.06 0 0.07 0.18 0.6 0.06 0 0.07 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 160px 160px;
+      mix-blend-mode: overlay;
+      opacity: 0.65;
+      contain: strict;
     }
   `]
 })
@@ -397,27 +440,40 @@ export class NewsActivitiesComponent {
     }
   ];
 
+  private cdr = inject(ChangeDetectorRef);
   featuredItem: ActivityItem = this.activities[0];
+  secondaryItems: ActivityItem[] = [];
 
-  get secondaryItems(): ActivityItem[] {
+  constructor() {
+    this.updateSecondaryItems();
+  }
+
+  trackByActivity = (_index: number, item: ActivityItem): string => item.id;
+
+  private updateSecondaryItems() {
     const filter = this.activeFilter();
     let list = this.activities.filter(a => a.id !== this.featuredItem.id);
     if (filter !== 'all') {
       list = this.activities.filter(a => a.badgeType === filter && a.id !== this.featuredItem.id);
     }
-    return list;
+    this.secondaryItems = list;
+    this.cdr.markForCheck();
   }
 
   selectFilter(key: 'all' | 'partnerships' | 'board' | 'conferences') {
+    if (this.activeFilter() === key) return;
     this.activeFilter.set(key);
     if (key !== 'all') {
       const match = this.activities.find(a => a.badgeType === key);
       if (match) this.featuredItem = match;
     }
+    this.updateSecondaryItems();
   }
 
   selectFeatured(item: ActivityItem) {
+    if (this.featuredItem.id === item.id) return;
     this.featuredItem = item;
+    this.updateSecondaryItems();
   }
 
   openArticleDetails(item: ActivityItem) {

@@ -1,4 +1,4 @@
-import { Component, inject, signal, Output, EventEmitter } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WebsiteDataService } from '../../services/website-data.service';
 import { MediaItem } from '../../models/website.models';
@@ -6,12 +6,21 @@ import { MediaItem } from '../../models/website.models';
 @Component({
   selector: 'app-media-center',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule],
   template: `
-    <section id="media" class="py-20 lg:py-28 bg-[#001f3b] text-white relative overflow-hidden">
-      <!-- Background Ambient Glow -->
-      <div class="absolute top-0 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
-      <div class="absolute bottom-0 left-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <section id="media" class="aura-container py-20 lg:py-28 text-white relative overflow-hidden">
+      <!-- Aura Layer 1: Wide Navy/Blue Screen Gradient -->
+      <div class="aura-layer-1 absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+
+      <!-- Aura Layer 2: Radial Amber/Navy Center Glow -->
+      <div class="aura-layer-2 absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+
+      <!-- Aura Layer 3: Cyan/Sky Soft Overlay -->
+      <div class="aura-layer-3 absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+
+      <!-- Film-Grain Noise Overlay (GPU-Accelerated CSS Pattern) -->
+      <div class="aura-grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -113,6 +122,8 @@ import { MediaItem } from '../../models/website.models';
               <img 
                 [src]="vid.image" 
                 [alt]="vid.title" 
+                loading="lazy"
+                decoding="async"
                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />
 
@@ -144,11 +155,7 @@ import { MediaItem } from '../../models/website.models';
                 class="absolute inset-0 flex flex-col justify-between p-5 sm:p-7 z-10 animate-fadeScale overflow-hidden"
               >
                 <!-- Top Row Badges -->
-                <div class="flex items-center justify-between">
-                  <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#f4921e] text-[#001f3b] shadow-md flex items-center gap-1.5">
-                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                    <span>فيديو توثيقي</span>
-                  </span>
+                <div class="flex items-center justify-end">
                   <span class="bg-black/65 backdrop-blur-md border border-white/20 px-3 py-1 rounded-xl text-xs font-mono font-bold text-white/95">
                     {{ vid.duration }}
                   </span>
@@ -176,7 +183,7 @@ import { MediaItem } from '../../models/website.models';
                     <span *ngIf="vid.speaker">•</span>
                     <span class="flex items-center gap-1.5">
                       <svg class="w-3.5 h-3.5 text-[#f4921e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                      <span>{{ vid.date }}</span>
+                    <span>{{ vid.date }}</span>
                     </span>
                   </div>
 
@@ -190,18 +197,8 @@ import { MediaItem } from '../../models/website.models';
                     {{ vid.description }}
                   </p>
 
-                  <!-- Tags & Action Button Row (Like Reference Image Pills) -->
-                  <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
-                    <!-- Pills / Tags -->
-                    <div class="flex flex-wrap items-center gap-2">
-                      <span 
-                        *ngFor="let tag of vid.tags"
-                        class="px-3.5 py-1 rounded-full text-xs font-semibold bg-[#008ecd]/25 text-[#38bdf8] border border-[#008ecd]/40 backdrop-blur-md"
-                      >
-                        {{ tag }}
-                      </span>
-                    </div>
-
+                  <!-- Action Button Row -->
+                  <div class="flex items-center pt-1">
                     <!-- Watch Action Button -->
                     <button 
                       (click)="playVideo(vid); $event.stopPropagation()"
@@ -276,6 +273,8 @@ import { MediaItem } from '../../models/website.models';
               <img 
                 [src]="pic.image" 
                 [alt]="pic.title" 
+                loading="lazy"
+                decoding="async"
                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />
 
@@ -307,11 +306,7 @@ import { MediaItem } from '../../models/website.models';
                 class="absolute inset-0 flex flex-col justify-between p-5 sm:p-7 z-10 animate-fadeScale overflow-hidden"
               >
                 <!-- Top Row Badges -->
-                <div class="flex items-center justify-between">
-                  <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#008ecd] text-white shadow-md flex items-center gap-1.5">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                    <span>معرض صور ميداني</span>
-                  </span>
+                <div class="flex items-center justify-end">
                   <span class="bg-black/65 backdrop-blur-md border border-white/20 px-3 py-1 rounded-xl text-xs font-mono font-bold text-white/95">
                     {{ pic.date }}
                   </span>
@@ -330,12 +325,6 @@ import { MediaItem } from '../../models/website.models';
 
                 <!-- Bottom Text, Tags & Actions -->
                 <div class="space-y-3 pt-3">
-                  <!-- Date Meta -->
-                  <div class="flex items-center gap-2 text-xs text-[#f4921e] font-bold">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                    <span>تاريخ التوثيق الميداني: {{ pic.date }}</span>
-                  </div>
-
                   <!-- Title -->
                   <h3 class="text-lg sm:text-xl md:text-2xl font-black text-white leading-snug line-clamp-2">
                     {{ pic.title }}
@@ -346,18 +335,8 @@ import { MediaItem } from '../../models/website.models';
                     {{ pic.description }}
                   </p>
 
-                  <!-- Tags & Action Button Row (Like Reference Image Pills) -->
-                  <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
-                    <!-- Pills / Tags -->
-                    <div class="flex flex-wrap items-center gap-2">
-                      <span 
-                        *ngFor="let tag of pic.tags"
-                        class="px-3.5 py-1 rounded-full text-xs font-semibold bg-[#008ecd]/25 text-[#38bdf8] border border-[#008ecd]/40 backdrop-blur-md"
-                      >
-                        {{ tag }}
-                      </span>
-                    </div>
-
+                  <!-- Action Button Row -->
+                  <div class="flex items-center pt-1">
                     <!-- Full Preview Action Button -->
                     <button 
                       (click)="previewPhoto(pic); $event.stopPropagation()"
@@ -492,6 +471,41 @@ import { MediaItem } from '../../models/website.models';
         flex: 0 0 76px !important;
       }
     }
+
+    /* Aura Background Styles (AIOCP Navy & Amber Palette - Fast GPU Optimized) */
+    .aura-container {
+      background-color: #00162b;
+      isolation: isolate;
+      contain: paint;
+    }
+    .aura-layer-1 {
+      background: radial-gradient(ellipse 90% 60% at 50% 50%, rgba(0, 142, 205, 0.35) 0%, rgba(0, 75, 140, 0.22) 50%, transparent 80%);
+      mix-blend-mode: screen;
+      filter: blur(40px);
+      transform: translateZ(0);
+    }
+    .aura-layer-2 {
+      background: radial-gradient(ellipse 65% 45% at 50% 60%, rgba(244, 146, 30, 0.3) 0%, rgba(0, 142, 205, 0.15) 45%, transparent 75%);
+      mix-blend-mode: screen;
+      filter: blur(35px);
+      opacity: 0.95;
+      transform: translateZ(0);
+    }
+    .aura-layer-3 {
+      background: radial-gradient(ellipse 75% 35% at 50% 50%, rgba(56, 189, 248, 0.14) 0%, transparent 70%);
+      mix-blend-mode: overlay;
+      filter: blur(25px);
+      opacity: 0.85;
+      transform: translateZ(0);
+    }
+    .aura-grain {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0.18 0.6 0.06 0 0.07 0.18 0.6 0.06 0 0.07 0.18 0.6 0.06 0 0.07 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 160px 160px;
+      mix-blend-mode: overlay;
+      opacity: 0.65;
+      contain: strict;
+    }
   `]
 })
 export class MediaCenterComponent {
@@ -512,23 +526,15 @@ export class MediaCenterComponent {
     { key: 'interview' as const, label: 'حوارات وتصريحات' }
   ];
 
-  get videoItems(): MediaItem[] {
-    return this.mediaItems.filter(m => m.type === 'video');
-  }
+  readonly videoItems: MediaItem[] = this.mediaItems.filter(m => m.type === 'video');
+  readonly photoItems: MediaItem[] = this.mediaItems.filter(m => m.type === 'photo');
+  readonly reportItems: MediaItem[] = this.mediaItems.filter(m => m.type === 'report');
+  readonly interviewItems: MediaItem[] = this.mediaItems.filter(m => m.type === 'interview');
 
-  get photoItems(): MediaItem[] {
-    return this.mediaItems.filter(m => m.type === 'photo');
-  }
-
-  get reportItems(): MediaItem[] {
-    return this.mediaItems.filter(m => m.type === 'report');
-  }
-
-  get interviewItems(): MediaItem[] {
-    return this.mediaItems.filter(m => m.type === 'interview');
-  }
+  trackByMedia = (_index: number, item: MediaItem): string => item.id;
 
   selectTab(tab: 'video' | 'photo' | 'report' | 'interview') {
+    if (this.activeTab() === tab) return;
     this.activeTab.set(tab);
   }
 

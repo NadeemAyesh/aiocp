@@ -1,4 +1,4 @@
-import { Component, inject, signal, Output, EventEmitter, ElementRef, ViewChild, AfterViewInit, HostListener } from '@angular/core';
+import { Component, inject, signal, computed, ChangeDetectionStrategy, Output, EventEmitter, ElementRef, ViewChild, AfterViewInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WebsiteDataService } from '../../services/website-data.service';
 import { ProjectItem } from '../../models/website.models';
@@ -6,6 +6,7 @@ import { ProjectItem } from '../../models/website.models';
 @Component({
   selector: 'app-projects',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule],
   template: `
     <section id="projects" class="py-20 lg:py-28 bg-[#f1f5f9]/70 dark:bg-[#030d1a] relative border-t border-b border-slate-200 dark:border-white/10 transition-colors duration-300 overflow-hidden">
@@ -13,7 +14,7 @@ import { ProjectItem } from '../../models/website.models';
       <!-- Dynamic Ambient Sector Aura -->
       <div 
         class="absolute top-28 left-1/2 -translate-x-1/2 w-3/4 max-w-4xl h-48 rounded-full pointer-events-none blur-3xl opacity-25 dark:opacity-20 transition-all duration-700 ease-out -z-10"
-        [style.background]="'radial-gradient(ellipse at center, ' + activeSectorColor + ' 0%, transparent 70%)'"
+        [style.background]="'radial-gradient(ellipse at center, ' + activeSectorColor() + ' 0%, transparent 70%)'"
       ></div>
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -44,9 +45,8 @@ import { ProjectItem } from '../../models/website.models';
             <!-- Sliding Dynamic Glider Pill -->
             <div 
               *ngIf="gliderStyle().ready"
-              class="sector-band__glider pointer-events-none absolute rounded-full transition-all duration-400 ease-[cubic-bezier(0.34,1.4,0.64,1)] z-0"
-              [style.left.px]="gliderStyle().left"
-              [style.top.px]="gliderStyle().top"
+              class="sector-band__glider pointer-events-none absolute rounded-full z-0"
+              [style.transform]="'translate3d(' + gliderStyle().left + 'px, ' + gliderStyle().top + 'px, 0)'"
               [style.width.px]="gliderStyle().width"
               [style.height.px]="gliderStyle().height"
               [style.background-color]="gliderStyle().color"
@@ -87,7 +87,7 @@ import { ProjectItem } from '../../models/website.models';
                 [class.dark:bg-white/10]="activeSector() !== 'all'"
                 [class.text-slate-600]="activeSector() !== 'all'"
                 [class.dark:text-slate-300]="activeSector() !== 'all'">
-                {{ getCountForSector('all') }}
+                {{ sectorCounts()['all'] }}
               </span>
             </button>
 
@@ -115,7 +115,7 @@ import { ProjectItem } from '../../models/website.models';
                 [class.dark:bg-white/10]="activeSector() !== s.key"
                 [class.text-slate-600]="activeSector() !== s.key"
                 [class.dark:text-slate-300]="activeSector() !== s.key">
-                {{ getCountForSector(s.key) }}
+                {{ sectorCounts()[s.key] || 0 }}
               </span>
             </button>
 
@@ -125,8 +125,7 @@ import { ProjectItem } from '../../models/website.models';
         <!-- Projects Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div 
-            *ngFor="let proj of filteredProjects; let idx = index; trackBy: trackBySectorProj"
-            [style.--card-idx]="idx"
+            *ngFor="let proj of filteredProjects(); trackBy: trackByProj"
             class="project-card-animate bg-white dark:bg-[#091b2e] rounded-3xl overflow-hidden border border-slate-200/90 dark:border-white/10 shadow-[0_4px_20px_-4px_rgba(0,40,77,0.08)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_40px_-12px_rgba(0,40,77,0.16)] dark:hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.7)] transition-all duration-300 hover:-translate-y-1.5 flex flex-col group"
           >
             <!-- Image & Badges -->
@@ -134,6 +133,8 @@ import { ProjectItem } from '../../models/website.models';
               <img 
                 [src]="proj.image" 
                 [alt]="proj.title" 
+                loading="lazy"
+                decoding="async"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
               />
               <div class="absolute inset-0 bg-gradient-to-t from-[#00172e]/85 via-[#00172e]/25 to-transparent"></div>
@@ -286,20 +287,29 @@ import { ProjectItem } from '../../models/website.models';
       50% { transform: scale(1.25); }
       100% { transform: scale(1); }
     }
-    .project-card-animate {
-      animation: cardCascadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
-      animation-delay: calc(var(--card-idx, 0) * 45ms);
+    .sector-band__glider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      will-change: transform, width;
+      transition: transform 0.24s cubic-bezier(0.34, 1.25, 0.64, 1),
+                  width 0.22s ease-out,
+                  background-color 0.2s ease,
+                  box-shadow 0.2s ease;
     }
-    @keyframes cardCascadeIn {
+    .project-card-animate {
+      animation: cardFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1) both;
+      will-change: transform, opacity;
+      contain: layout style;
+    }
+    @keyframes cardFadeIn {
       0% {
         opacity: 0;
-        transform: translateY(22px) scale(0.96);
-        filter: blur(4px);
+        transform: translate3d(0, 8px, 0);
       }
       100% {
         opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
+        transform: translate3d(0, 0, 0);
       }
     }
     .scrollbar-none::-webkit-scrollbar {
@@ -348,9 +358,31 @@ export class ProjectsComponent implements AfterViewInit {
     { key: 'damage-assessment', label: 'حصر الأضرار', color: '#E0A526', iconUrl: 'images/sectors/damage-assessment.svg' }
   ];
 
+  filteredProjects = computed(() => {
+    const sec = this.activeSector();
+    if (sec === 'all') return this.allProjects;
+    return this.allProjects.filter(p => p.sector === sec);
+  });
+
+  activeSectorColor = computed(() => {
+    return this.getSectorColor(this.activeSector());
+  });
+
+  sectorCounts = computed(() => {
+    const counts: Record<string, number> = { all: this.allProjects.length };
+    for (const p of this.allProjects) {
+      counts[p.sector] = (counts[p.sector] || 0) + 1;
+    }
+    return counts;
+  });
+
+  trackByProj = (_index: number, item: ProjectItem): string | number => {
+    return item.id || item.title;
+  };
+
   ngAfterViewInit() {
-    setTimeout(() => this.syncGlider(), 60);
-    setTimeout(() => this.syncGlider(), 250);
+    setTimeout(() => this.syncGlider(), 40);
+    setTimeout(() => this.syncGlider(), 180);
     if (typeof document !== 'undefined' && (document as any).fonts) {
       (document as any).fonts.ready.then(() => this.syncGlider());
     }
@@ -361,29 +393,27 @@ export class ProjectsComponent implements AfterViewInit {
     this.syncGlider();
   }
 
-  get filteredProjects(): ProjectItem[] {
-    const sec = this.activeSector();
-    if (sec === 'all') return this.allProjects;
-    return this.allProjects.filter(p => p.sector === sec);
-  }
-
-  get activeSectorColor(): string {
-    return this.getSectorColor(this.activeSector());
-  }
-
-  trackBySectorProj = (index: number, item: ProjectItem): string => {
-    return `${this.activeSector()}_${item.id || item.title}_${index}`;
-  };
-
   selectSector(key: string, event?: MouseEvent) {
+    if (this.activeSector() === key) return;
     this.activeSector.set(key);
     let targetBtn: HTMLElement | null = null;
     if (event && event.currentTarget) {
       targetBtn = event.currentTarget as HTMLElement;
     }
     this.syncGlider(targetBtn);
-    if (targetBtn) {
-      targetBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    if (targetBtn && this.stripContainer?.nativeElement?.parentElement) {
+      const scroller = this.stripContainer.nativeElement.parentElement;
+      if (scroller.scrollWidth > scroller.clientWidth) {
+        const btnRect = targetBtn.getBoundingClientRect();
+        const scrollerRect = scroller.getBoundingClientRect();
+        const currentScrollLeft = scroller.scrollLeft;
+        const offsetInScroller = btnRect.left - scrollerRect.left + (btnRect.width / 2);
+        const targetScroll = currentScrollLeft + offsetInScroller - (scrollerRect.width / 2);
+        scroller.scrollTo({
+          left: targetScroll,
+          behavior: 'smooth'
+        });
+      }
     }
   }
 
@@ -412,11 +442,6 @@ export class ProjectsComponent implements AfterViewInit {
       color: this.getSectorColor(this.activeSector()),
       ready: true
     });
-  }
-
-  getCountForSector(key: string): number {
-    if (key === 'all') return this.allProjects.length;
-    return this.allProjects.filter(p => p.sector === key).length;
   }
 
   getSectorColor(sectorKey: string): string {
