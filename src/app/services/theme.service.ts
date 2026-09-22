@@ -19,19 +19,9 @@ export class ThemeService {
 
   private initTheme(): void {
     const savedTheme = localStorage.getItem('palimar_theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    const isDark = savedTheme ? savedTheme === 'dark' : prefersDark;
+    const isDark = savedTheme === 'dark';
     this.isDarkMode.set(isDark);
     this.applyTheme(isDark);
-
-    // Listen to system preference changes if user hasn't explicitly set one
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-      if (!localStorage.getItem('palimar_theme')) {
-        this.isDarkMode.set(e.matches);
-        this.applyTheme(e.matches);
-      }
-    });
   }
 
   toggleTheme(): void {

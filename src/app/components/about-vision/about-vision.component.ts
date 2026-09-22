@@ -48,9 +48,6 @@ import { Partner } from '../../models/website.models';
               <h3 class="text-lg sm:text-xl font-black text-[#00284d] dark:text-white transition-colors tracking-tight">
                 شركاء المسيرة والتحالفات الاستراتيجية
               </h3>
-              <p class="text-slate-500 dark:text-slate-400 text-xs leading-relaxed transition-colors">
-                عضويات فاعلة وشراكات موثقة مع كتل الأمم المتحدة والوزارات والنقابات المختصة.
-              </p>
             </div>
 
             <!-- Slider Navigation Arrows & Counter (Left Aligned in RTL) -->
@@ -147,10 +144,7 @@ import { Partner } from '../../models/website.models';
                       </div>
                     </div>
 
-                    <!-- Concise Description -->
-                    <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-2">
-                      {{ partner.description }}
-                    </p>
+
                   </div>
 
                   <!-- Compact Footer -->

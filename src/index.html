@@ -220,13 +220,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,700&family=Epilogue:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Immediate Theme Initialization to avoid flash of wrong theme (FOUC) -->
   <script>
     (function() {
       try {
         var saved = localStorage.getItem('palimar_theme');
-        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (saved === 'dark' || (!saved && prefersDark)) {
+        if (saved === 'dark') {
           document.documentElement.classList.add('dark');
           document.documentElement.style.colorScheme = 'dark';
         } else {

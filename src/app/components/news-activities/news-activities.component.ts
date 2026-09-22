@@ -23,8 +23,8 @@ interface ActivityItem {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule],
   template: `
-    <!-- News & Activities Section (Exact Dark Navy Executive Layout as in Screenshot) -->
-    <section id="activities" class="aura-container py-20 lg:py-28 text-white relative overflow-hidden">
+    <!-- News & Activities Section (Executive Layout - Scaled & Well-Proportioned UI) -->
+    <section id="activities" class="aura-container py-14 lg:py-20 text-white relative overflow-hidden">
       <!-- Aura Layer 1: Wide Navy/Blue Screen Gradient -->
       <div class="aura-layer-1 absolute inset-0 pointer-events-none" aria-hidden="true"></div>
 
@@ -40,20 +40,20 @@ interface ActivityItem {
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         <!-- Breaking News Ticker Strip (تحديثات عاجلة - مخفي مؤقتاً) -->
-        <div *ngIf="showBreakingNews()" class="mb-12 bg-white/[0.04] hover:bg-white/[0.07] backdrop-blur-md border border-white/10 rounded-2xl p-2.5 sm:p-3 shadow-2xl flex items-center gap-3 sm:gap-4 text-xs overflow-hidden transition-colors duration-200">
-          <div class="flex-shrink-0 flex items-center gap-2 font-black text-[#f4921e] bg-[#f4921e]/15 px-3 py-1.5 rounded-xl border border-[#f4921e]/30 shadow-sm">
-            <span class="w-2 h-2 rounded-full bg-[#f4921e] animate-ping"></span>
+        <div *ngIf="showBreakingNews()" class="mb-8 bg-white/[0.04] hover:bg-white/[0.07] backdrop-blur-md border border-white/10 rounded-xl p-2 sm:p-2.5 shadow-xl flex items-center gap-3 text-xs overflow-hidden transition-colors duration-200">
+          <div class="flex-shrink-0 flex items-center gap-1.5 font-bold text-[#f4921e] bg-[#f4921e]/15 px-2.5 py-1 rounded-lg border border-[#f4921e]/30 shadow-sm text-[11px]">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#f4921e] animate-ping"></span>
             <span class="whitespace-nowrap">تحديثات عاجلة:</span>
           </div>
           <div class="overflow-hidden relative flex-1">
-            <div class="whitespace-nowrap flex items-center gap-8 animate-ticker text-slate-300 font-medium">
-              <span *ngFor="let item of breakingNews" class="inline-flex items-center gap-2.5 hover:text-white transition">
-                <span class="text-[#f4921e]">✦</span>
+            <div class="whitespace-nowrap flex items-center gap-6 animate-ticker text-slate-300 font-medium text-xs">
+              <span *ngFor="let item of breakingNews" class="inline-flex items-center gap-2 hover:text-white transition">
+                <span class="text-[#f4921e] text-[10px]">✦</span>
                 <span>{{ item }}</span>
               </span>
               <!-- Continuous looping repeat -->
-              <span *ngFor="let item of breakingNews" class="inline-flex items-center gap-2.5 hover:text-white transition" aria-hidden="true">
-                <span class="text-[#f4921e]">✦</span>
+              <span *ngFor="let item of breakingNews" class="inline-flex items-center gap-2 hover:text-white transition" aria-hidden="true">
+                <span class="text-[#f4921e] text-[10px]">✦</span>
                 <span>{{ item }}</span>
               </span>
             </div>
@@ -61,54 +61,54 @@ interface ActivityItem {
         </div>
 
         <!-- Section Header -->
-        <div class="mb-10 space-y-3">
+        <div class="mb-8 space-y-2">
           <!-- Top Pill Badge -->
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-black bg-blue-950/80 text-[#38bdf8] border border-blue-800/40">
-            <span class="text-sm">🔥</span>
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-blue-950/80 text-[#38bdf8] border border-blue-800/40 shadow-sm">
+            <span class="text-xs">🔥</span>
             <span>الملتقيات والمؤتمرات والبيان</span>
           </div>
 
           <!-- Section Main Headline -->
-          <h2 class="text-2xl sm:text-3xl lg:text-[2.25rem] font-black text-white tracking-tight leading-[1.25]">
+          <h2 class="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight leading-snug">
             أنشطة وحراك الهيئة الدولي والإغاثي
           </h2>
 
           <!-- Subtitle -->
-          <p class="text-slate-400 text-xs sm:text-sm max-w-3xl leading-relaxed font-normal">
+          <p class="text-slate-400 text-xs sm:text-xs max-w-2xl leading-relaxed font-normal">
             الإطار والمؤتمرات الدولية، اجتماعات مجلس الإدارة، والتحالفات الاستراتيجية لتسريع تنفيذ التدخلات الإعمارية والإنسانية في فلسطين.
           </p>
         </div>
 
-        <!-- Filter Pills Bar (Matching Screenshot) -->
-        <div class="flex flex-wrap items-center gap-2.5 mb-10">
+        <!-- Filter Pills Bar (Clean & Balanced Buttons) -->
+        <div class="flex flex-wrap items-center gap-2 mb-8">
           <button 
             *ngFor="let tab of filterTabs"
             (click)="selectFilter(tab.key)"
-            class="px-4 py-2 rounded-xl text-xs font-black transition-all duration-200 flex items-center gap-2 border"
+            class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 flex items-center gap-1.5 border shadow-sm cursor-pointer"
             [class.bg-[#f4921e]]="activeFilter() === tab.key"
             [class.text-[#061527]]="activeFilter() === tab.key"
             [class.border-[#f4921e]]="activeFilter() === tab.key"
-            [class.shadow-lg]="activeFilter() === tab.key"
-            [class.shadow-orange-500/20]="activeFilter() === tab.key"
+            [class.shadow-md]="activeFilter() === tab.key"
+            [class.shadow-orange-500/15]="activeFilter() === tab.key"
             [class.bg-[#0a2038]]="activeFilter() !== tab.key"
             [class.text-slate-300]="activeFilter() !== tab.key"
             [class.border-white/10]="activeFilter() !== tab.key"
             [class.hover:border-white/20]="activeFilter() !== tab.key"
             [class.hover:text-white]="activeFilter() !== tab.key"
           >
-            <span *ngIf="tab.icon">{{ tab.icon }}</span>
+            <span *ngIf="tab.icon" class="text-xs">{{ tab.icon }}</span>
             <span>{{ tab.label }}</span>
           </button>
         </div>
 
         <!-- Split Grid (Featured Spotlight on Right, 3 Stacked Cards on Left in RTL) -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
-          <!-- RIGHT COLUMN (Span 7): Giant Featured News Showcase Card -->
-          <div class="lg:col-span-7 bg-[#0b213a]/90 rounded-3xl p-5 sm:p-7 border border-white/10 shadow-2xl space-y-6">
+          <!-- RIGHT COLUMN (Span 7): Featured News Showcase Card -->
+          <div class="lg:col-span-7 bg-[#0b213a]/90 rounded-2xl p-4 sm:p-6 border border-white/10 shadow-xl space-y-5">
             
             <!-- Featured Media Image Container with Floating Badges -->
-            <div class="relative rounded-2xl overflow-hidden aspect-[16/9] bg-slate-900 group">
+            <div class="relative rounded-xl overflow-hidden aspect-[16/9] bg-slate-900 group">
               <img 
                 [src]="featuredItem.image" 
                 [alt]="featuredItem.title" 
@@ -117,70 +117,70 @@ interface ActivityItem {
               <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
 
               <!-- Top Badges -->
-              <div class="absolute top-3.5 right-3.5 flex flex-wrap items-center gap-2">
-                <span class="px-3 py-1 rounded-lg text-xs font-black bg-[#f4921e] text-[#061527] shadow flex items-center gap-1.5">
-                  <span>🔥</span>
+              <div class="absolute top-3 right-3 flex flex-wrap items-center gap-1.5">
+                <span class="px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-[#f4921e] text-[#061527] shadow flex items-center gap-1">
+                  <span class="text-xs">🔥</span>
                   <span>{{ featuredItem.badge }}</span>
                 </span>
-                <span class="px-3 py-1 rounded-lg text-xs font-bold bg-black/60 backdrop-blur-md text-white/90 border border-white/15">
+                <span class="px-2.5 py-0.5 rounded-md text-[10px] font-medium bg-black/60 backdrop-blur-md text-white/90 border border-white/15">
                   تصنيف دولي
                 </span>
               </div>
 
               <!-- Bottom Floating Badges on Image -->
-              <div class="absolute bottom-3.5 right-3.5 left-3.5 flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <span class="px-3 py-1 rounded-lg text-xs font-bold bg-emerald-500 text-white shadow flex items-center gap-1.5">
+              <div class="absolute bottom-3 right-3 left-3 flex items-center justify-between">
+                <div class="flex items-center gap-1.5">
+                  <span class="px-2.5 py-0.5 rounded-md text-[10px] font-semibold bg-emerald-500 text-white shadow flex items-center gap-1.5">
                     <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
                     <span>مرحلة التنفيذ الفوري</span>
                   </span>
-                  <span *ngIf="featuredItem.location" class="hidden sm:inline-block px-2.5 py-1 rounded-lg text-[11px] font-medium bg-black/60 text-slate-300 border border-white/10 backdrop-blur-sm">
+                  <span *ngIf="featuredItem.location" class="hidden sm:inline-block px-2 py-0.5 rounded-md text-[10px] font-medium bg-black/60 text-slate-300 border border-white/10 backdrop-blur-sm">
                     {{ featuredItem.location }}
                   </span>
                 </div>
 
-                <span *ngIf="featuredItem.projectsCount" class="px-3 py-1 rounded-lg text-xs font-black bg-amber-500/90 text-slate-950 shadow">
+                <span *ngIf="featuredItem.projectsCount" class="px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-amber-500/90 text-slate-950 shadow">
                   {{ featuredItem.projectsCount }}
                 </span>
               </div>
             </div>
 
             <!-- Headline & Excerpt -->
-            <div class="space-y-2.5">
-              <h3 class="text-lg sm:text-xl lg:text-2xl font-black text-white leading-snug hover:text-[#38bdf8] transition-colors cursor-pointer" (click)="openArticleDetails(featuredItem)">
+            <div class="space-y-2">
+              <h3 class="text-base sm:text-lg lg:text-xl font-bold text-white leading-snug hover:text-[#38bdf8] transition-colors cursor-pointer" (click)="openArticleDetails(featuredItem)">
                 {{ featuredItem.title }}
               </h3>
 
-              <p class="text-slate-300 text-xs sm:text-[13px] leading-relaxed font-normal">
+              <p class="text-slate-300 text-xs leading-relaxed font-normal line-clamp-3">
                 {{ featuredItem.excerpt }}
               </p>
             </div>
 
-            <!-- 3 Metrics Boxes Strip (Matching Screenshot) -->
-            <div class="grid grid-cols-3 gap-3 pt-1">
+            <!-- 3 Metrics Boxes Strip -->
+            <!-- <div class="grid grid-cols-3 gap-2.5 pt-1">
               <div 
                 *ngFor="let m of featuredItem.metrics"
-                class="bg-[#07182c] rounded-2xl p-3 border border-white/10 text-center space-y-1"
+                class="bg-[#07182c] rounded-xl p-2.5 border border-white/10 text-center space-y-0.5"
               >
-                <span class="block text-base sm:text-xl font-black font-display {{ m.color }}">{{ m.value }}</span>
-                <span class="block text-[11px] sm:text-xs font-bold text-white">{{ m.label }}</span>
+                <span class="block text-sm sm:text-base font-extrabold font-display {{ m.color }}">{{ m.value }}</span>
+                <span class="block text-[11px] font-bold text-slate-200">{{ m.label }}</span>
                 <span class="block text-[10px] text-slate-400 font-medium">{{ m.sub }}</span>
               </div>
-            </div>
+            </div> -->
 
-            <!-- Action Footer Bar -->
-            <div class="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+            <!-- Action Footer Bar with Compact Organized Buttons -->
+            <div class="pt-3.5 border-t border-white/10 flex flex-wrap items-center justify-between gap-2.5">
               <button 
                 (click)="openArticleDetails(featuredItem)"
-                class="px-6 py-3 rounded-xl bg-gradient-to-r from-[#f4921e] to-[#de7c0d] hover:from-[#ff9e2e] hover:to-[#f4921e] text-[#061527] font-black text-xs sm:text-sm shadow-xl hover:shadow-orange-500/20 transition flex items-center gap-2"
+                class="px-4 py-2 rounded-xl bg-gradient-to-r from-[#f4921e] to-[#de7c0d] hover:from-[#ff9e2e] hover:to-[#f4921e] text-[#061527] font-bold text-xs shadow-md hover:shadow-orange-500/20 transition flex items-center gap-1.5 cursor-pointer"
               >
                 <span>تفاصيل الاتفاقية والبيان المشترك</span>
-                <span class="text-base font-bold">+</span>
+                <span class="text-sm font-bold">+</span>
               </button>
 
               <button 
                 (click)="openArticleDetails(featuredItem)"
-                class="text-xs font-bold text-slate-400 hover:text-white transition flex items-center gap-1.5"
+                class="px-3 py-2 text-xs font-semibold text-slate-400 hover:text-white transition flex items-center gap-1 cursor-pointer"
               >
                 <span>قراءة التقرير الميداني</span>
                 <svg class="w-3.5 h-3.5 transform -scale-x-100" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
@@ -189,36 +189,36 @@ interface ActivityItem {
 
           </div>
 
-          <!-- LEFT COLUMN (Span 5): Vertical Stack of 3 Secondary Cards (Matching Screenshot) -->
-          <div class="lg:col-span-5 space-y-4">
+          <!-- LEFT COLUMN (Span 5): Vertical Stack of Secondary Cards -->
+          <div class="lg:col-span-5 space-y-3">
             
             <div 
               *ngFor="let item of secondaryItems; trackBy: trackByActivity"
               (click)="selectFeatured(item)"
-              class="bg-[#0b213a]/80 hover:bg-[#0b213a] rounded-2xl p-4 sm:p-5 border border-white/10 hover:border-white/25 transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer group flex flex-col justify-between"
+              class="bg-[#0b213a]/80 hover:bg-[#0b213a] rounded-xl p-3.5 sm:p-4 border border-white/10 hover:border-white/20 transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer group flex flex-col justify-between"
               [class.ring-2]="featuredItem.id === item.id"
               [class.ring-[#f4921e]/40]="featuredItem.id === item.id"
             >
-              <div class="flex items-start justify-between gap-4 mb-3">
-                <div class="space-y-2 flex-1">
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <div class="space-y-1.5 flex-1">
                   <!-- Category & Time -->
-                  <div class="flex items-center gap-2 text-[11px]">
-                    <span class="px-2.5 py-0.5 rounded-md font-bold text-xs {{ item.badgeColor }} bg-white/10">
+                  <div class="flex items-center gap-2 text-[10px]">
+                    <span class="px-2 py-0.5 rounded font-bold {{ item.badgeColor }} bg-white/10">
                       {{ item.badge }}
                     </span>
                     <span class="text-slate-400">• {{ item.timeAgo }}</span>
                   </div>
 
                   <!-- Headline -->
-                  <h4 class="text-xs sm:text-sm font-bold text-white leading-snug group-hover:text-[#38bdf8] transition-colors line-clamp-2">
+                  <h4 class="text-xs sm:text-[13px] font-bold text-white leading-snug group-hover:text-[#38bdf8] transition-colors line-clamp-2">
                     {{ item.title }}
                   </h4>
                 </div>
 
                 <!-- Thumbnail on Left with Inner Badge -->
-                <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden flex-shrink-0 border border-white/15">
+                <div class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden flex-shrink-0 border border-white/15">
                   <img [src]="item.image" [alt]="item.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <span class="absolute bottom-1 right-1 px-1.5 py-0.5 rounded text-[9px] font-black bg-black/75 text-white backdrop-blur-sm">
+                  <span class="absolute bottom-1 right-1 px-1 py-0.5 rounded text-[8px] font-bold bg-black/75 text-white backdrop-blur-sm">
                     {{ item.badge }}
                   </span>
                 </div>
@@ -228,12 +228,12 @@ interface ActivityItem {
               <div class="pt-2 border-t border-white/5 flex items-center justify-between text-xs">
                 <button 
                   (click)="openArticleDetails(item); $event.stopPropagation()"
-                  class="text-[#38bdf8] group-hover:text-[#f4921e] font-bold flex items-center gap-1 transition"
+                  class="text-[#38bdf8] group-hover:text-[#f4921e] text-xs font-bold flex items-center gap-1 transition"
                 >
                   <span>التفاصيل</span>
-                  <span class="text-sm">←</span>
+                  <span class="text-xs">←</span>
                 </button>
-                <span class="text-[11px] text-slate-500">إعلام الإعمار</span>
+                <span class="text-[10px] text-slate-500">إعلام الإعمار</span>
               </div>
 
             </div>
@@ -242,28 +242,34 @@ interface ActivityItem {
 
         </div>
 
-        <!-- Executive Bottom Archive & Impact Stats Strip (From User Reference) -->
-        <div class="mt-12 bg-[#091b2e]/90 backdrop-blur-md rounded-2xl border border-white/10 p-5 sm:p-6 lg:px-8 lg:py-5 shadow-2xl flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        <!-- Executive Bottom Archive & Impact Stats Strip (Compact & Proportioned) -->
+        <div class="mt-6 bg-[#081a2d]/80 backdrop-blur-md rounded-xl border border-white/10 px-4 py-2.5 sm:px-5 sm:py-3 shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs">
           
           <!-- Right Stats Group (In RTL) -->
-          <div class="flex flex-wrap items-center gap-6 sm:gap-10 lg:gap-14">
+          <div class="flex flex-wrap items-center gap-4 sm:gap-6 lg:gap-8 divide-x divide-x-reverse divide-white/10">
             
             <!-- Stat 1: Meetings 2025 -->
-            <div class="space-y-1">
-              <span class="block text-[11px] sm:text-xs text-slate-400 font-medium">اجتماعات وملتقيات 2025</span>
-              <span class="block text-lg sm:text-xl font-black text-[#f4921e] tracking-tight font-mono">+18 لقاءً دولياً</span>
+            <div class="flex items-center gap-2">
+              <div class="space-y-0.5">
+                <span class="block text-[10px] text-slate-400 font-medium">اجتماعات وملتقيات 2025</span>
+                <span class="block text-xs sm:text-sm font-bold text-[#f4921e] tracking-tight font-mono">+18 لقاءً دولياً</span>
+              </div>
             </div>
 
             <!-- Stat 2: MoUs & Partnerships -->
-            <div class="space-y-1">
-              <span class="block text-[11px] sm:text-xs text-slate-400 font-medium">مذكرات تفاهم وشراكة</span>
-              <span class="block text-lg sm:text-xl font-black text-[#38bdf8] tracking-tight font-mono">14 اتفاقية</span>
+            <div class="pr-4 sm:pr-6 flex items-center gap-2">
+              <div class="space-y-0.5">
+                <span class="block text-[10px] text-slate-400 font-medium">مذكرات تفاهم وشراكة</span>
+                <span class="block text-xs sm:text-sm font-bold text-[#38bdf8] tracking-tight font-mono">14 اتفاقية</span>
+              </div>
             </div>
 
             <!-- Stat 3: Humanitarian Clusters -->
-            <div class="space-y-1">
-              <span class="block text-[11px] sm:text-xs text-slate-400 font-medium">تمثيل في التكتلات الإنسانية</span>
-              <span class="block text-lg sm:text-xl font-black text-emerald-400 tracking-tight font-mono">4 كتل أممية</span>
+            <div class="pr-4 sm:pr-6 flex items-center gap-2">
+              <div class="space-y-0.5">
+                <span class="block text-[10px] text-slate-400 font-medium">تمثيل في التكتلات الإنسانية</span>
+                <span class="block text-xs sm:text-sm font-bold text-emerald-400 tracking-tight font-mono">4 كتل أممية</span>
+              </div>
             </div>
 
           </div>
@@ -272,13 +278,13 @@ interface ActivityItem {
           <div class="shrink-0">
             <button 
               (click)="onViewAllArchive()"
-              class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#f4921e] hover:bg-[#ff9e2e] active:bg-[#e08112] text-[#00172e] font-black text-xs sm:text-sm transition-all duration-200 shadow-[0_4px_24px_rgba(244,146,30,0.35)] hover:shadow-[0_6px_30px_rgba(244,146,30,0.5)] hover:scale-[1.02] active:scale-98 flex items-center justify-center gap-2.5 cursor-pointer"
+              class="w-full sm:w-auto px-3.5 py-1.5 sm:py-2 rounded-lg bg-[#f4921e] hover:bg-[#ff9e2e] active:bg-[#e08112] text-[#00172e] font-bold text-xs transition-all duration-200 shadow hover:shadow-orange-500/20 hover:scale-[1.01] active:scale-98 flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
             >
-              <svg class="w-4 h-4 text-[#00172e] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-3.5 h-3.5 text-[#00172e] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
               </svg>
               <span>استعراض أرشيف الأنشطة والمؤتمرات بالكامل</span>
-              <span class="text-base font-bold transform -translate-x-0.5">←</span>
+              <span class="text-xs font-bold transform -translate-x-0.5">←</span>
             </button>
           </div>
 
